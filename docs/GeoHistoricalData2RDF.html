@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        GeoHistoricalData2RDF - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.markdown-body kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}.ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}.markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}.ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}.markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}.ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;font-family:Source Sans Pro,Helvetica,Arial,sans-serif;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled"><h1 id="GeoHistoricalData2RDF"><a class="anchor hidden-xs" href="#GeoHistoricalData2RDF" title="GeoHistoricalData2RDF"><span class="octicon octicon-link"></span></a>GeoHistoricalData2RDF</h1><p>Journal de travail de la publication LOD des données GeoHistoricalData</p><h1 id="Mardi-7-août-2018"><a class="anchor hidden-xs" href="#Mardi-7-août-2018" title="Mardi-7-août-2018"><span class="octicon octicon-link"></span></a>Mardi 7 août 2018</h1><p><strong>Schemas</strong></p><ul>
+<li>Première version faite par les étudiants de l’ENSG: <a href="https://github.com/geoTirroirs/geoSnippets/blob/master/ghs/geotir.ttl" target="_blank" rel="noopener">https://github.com/geoTirroirs/geoSnippets/blob/master/ghs/geotir.ttl</a></li>
+<li>Une deuxième proposition de schéma par Nathalie Abadie.</li>
+<li><a href="https://github.com/LinkedPasts/linked-places" target="_blank" rel="noopener">Linked Places Format</a></li>
+</ul><p><strong>Thesaurus et typologie d’entités</strong><br>
+On décrit notre propre thesaurus comme des concepts Skos et on peut lier chaque concept à des concepts Getty, <a href="http://pactols.frantiq.fr/" target="_blank" rel="noopener">http://pactols.frantiq.fr/</a>, Wikidata</p><p>Ci-dessous la liste extraite des tables chefs_lieux et toponymes:<br>
+Abbaye<br>
+Cabane<br>
+Calvaire ou Oratoire<br>
+Clocher<br>
+Autre<br>
+Autre lieu religieux<br>
+Chapelle<br>
+Château<br>
+Cimetière<br>
+Clocher succursale<br>
+Commanderie<br>
+Corps de Garde<br>
+Fort<br>
+Gentilhommière<br>
+Hameau<br>
+Justice<br>
+Maison<br>
+Moulin à eau<br>
+Moulin à vent<br>
+Port<br>
+Prieuré<br>
+Redoute</p><p>ville<br>
+bourg<br>
+chapelle<br>
+autre<br>
+hameau<br>
+clocher<br>
+abbaye</p><p><strong>Outils pour transformer les données</strong><br>
+Outil R2RML : <a href="https://github.com/nkons/r2rml-parser" target="_blank" rel="noopener">R2RML-Parser</a><br>
+Règles créées par B. Dumenieu pour l’historique des communes de France.</p><p><strong>URIs</strong><br>
+reuse of primary keys of the database tables, something like <a href="http://data.geohistoricaldata.org/id/place/111" target="_blank" rel="noopener">http://data.geohistoricaldata.org/id/place/111</a>.</p><p><strong>Sources et auteurs</strong><br>
+Predicats à implementer (par chaque entrée lieu du gazetier ?) :<br>
+dcterms:contributor,<br>
+dcterms:bibliographicCitation,<br>
+dc:creator</p><p><strong>Liens d’équivalence</strong><br>
+Getty TGN ou Wikidata ou Geonames ou Pleaides-places ?<br>
+Prévoir utilisation des scripts de Karl Grossner (cf. mail de 7/8)</p><p><strong>Indexation par WHG</strong><br>
+Voir <a href="https://github.com/LinkedPasts/linked-places/blob/master/n-quads_annotated.rdf" target="_blank" rel="noopener">https://github.com/LinkedPasts/linked-places/blob/master/n-quads_annotated.rdf</a></p><p><strong>Ordre de priorité des données à transformer</strong><br>
+Cassini :</p><ol>
+<li>Lieux ponctuels</li>
+<li>Chefs lieux de paroisse (à fusionner avec les lieux ponctuels) <strong>Complet</strong></li>
+<li>Taches urbaines <strong>Complet</strong></li>
+<li>Réseau routier <strong>Complet</strong></li>
+<li>Réseau hydrographique</li>
+<li>Oronymes</li>
+<li>Couverture forestiere (INRA/WWF) : vérifier les droits <strong>Complet</strong></li>
+<li>Limites administratives</li>
+<li>Occupation du sol</li>
+</ol><h1 id="Pré-traitements-à-faire--travail-de-reconciliation-de-données"><a class="anchor hidden-xs" href="#Pré-traitements-à-faire--travail-de-reconciliation-de-données" title="Pré-traitements-à-faire--travail-de-reconciliation-de-données"><span class="octicon octicon-link"></span></a>Pré-traitements à faire : travail de reconciliation de données</h1><p>On veut arriver à une seule table Lieux ponctuels avec une typologie homogène et cartographique (conforme à la legende de Cassini) resultant de la fusion des tables _toponymes, _taches_urbaines et _chefs_lieux.</p><p>Les attributs à conserver de chacune des trois tables sont listés ci-dessous et ceux-ci définissent la structure de la table resultante:</p><h3 id="_toponymes"><a class="anchor hidden-xs" href="#_toponymes" title="_toponymes"><span class="octicon octicon-link"></span></a>_toponymes:</h3><table>
+<thead>
+<tr>
+<th>Champs</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>-&gt; id_toponymes</td>
+</tr>
+<tr>
+<td>incertain</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>valide</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>commentaire</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>nom</td>
+<td>-&gt; réconcilier avec chefs_lieux.nomcart</td>
+</tr>
+<tr>
+<td>geom</td>
+<td>-&gt; réconcilier avec chefs_lieux.geom</td>
+</tr>
+<tr>
+<td>oldtype</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>ruine</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>type_id</td>
+<td>-&gt; remplacer par la chaîne correspondante</td>
+</tr>
+<tr>
+<td>sym_taille</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+</tbody>
+</table><h3 id="_taches_urbaines"><a class="anchor hidden-xs" href="#_taches_urbaines" title="_taches_urbaines"><span class="octicon octicon-link"></span></a>_taches_urbaines</h3><table>
+<thead>
+<tr>
+<th>Champs</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td></td>
+</tr>
+<tr>
+<td>geom</td>
+<td></td>
+</tr>
+<tr>
+<td>nom</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td></td>
+</tr>
+<tr>
+<td>commentaire</td>
+<td></td>
+</tr>
+<tr>
+<td>fortifiee</td>
+<td></td>
+</tr>
+</tbody>
+</table><h3 id="_chefs_lieux"><a class="anchor hidden-xs" href="#_chefs_lieux" title="_chefs_lieux"><span class="octicon octicon-link"></span></a>_chefs_lieux:</h3><table>
+<thead>
+<tr>
+<th>Champs</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gid</td>
+<td>-&gt; id_chefs_lieux</td>
+</tr>
+<tr>
+<td>id</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>npc</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>noacass</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>typecart</td>
+<td>-&gt;  réconcilier avec la chaîne associée au toponyms.type_id</td>
+</tr>
+<tr>
+<td>xy_valid</td>
+<td>-&gt; Information de généalogie de la donnée. -&gt; ne pas conserver (à intégrer dans une prochaine MAJ)</td>
+</tr>
+<tr>
+<td>nomcart</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>type_bd</td>
+<td><em>co</em>: commune existante en 1999. <em>ca</em>: ancienne commune. <em>new</em>: chefs lieux de paroisses présents dans cassini mais qui ne sont pas devenus des communes. <strong>-&gt; à transformer en attestation du statut de commune en 1999 pour co et ac.</strong></td>
+</tr>
+<tr>
+<td>xlamb</td>
+<td>Coordonnées de la commune en Lambert II étendu (vide ou 0 pour <em>new</em>). -&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>ylamb</td>
+<td>Coordonnées de la commune en Lambert II étendu (vide ou 0 pour <em>new</em>)-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>dep99</td>
+<td>Département de la commune en 1999. -&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>insee_l</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>insee_c</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>label</td>
+<td>Dernier nom connu de la commune. -&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>noman3</td>
+<td>Nom de la commune lors du recensement de l’AN 3. -&gt; à conserver</td>
+</tr>
+<tr>
+<td>nom1801</td>
+<td>Nom de la commune en 1801. -&gt; à conserver</td>
+</tr>
+<tr>
+<td>nb</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>xlambo</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>ylambo</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>lon</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>lat</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>codgeon</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>nom1999</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>no</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>type1794</td>
+<td>Existance de la commune en 1794. <em>NE</em>: non-existante, <em>adm.</em>: Commune administrée par une autre. <em>E</em>: existance, <em>abs.</em>: document ou page disparue. <em>lac.</em>: oubliée sur la publication du recensement. <em>etr.</em>: communes absentes car sur territoire étranger en 1794. <em>NULL</em>: ???.<strong>-&gt; à transformer.</strong></td>
+</tr>
+<tr>
+<td>han3</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>han8</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1806</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1820</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1831</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1836</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1841</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1846</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1851</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1856</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1861</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1866</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1872</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1876</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1881</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1886</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1891</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1896</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1901</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1906</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1911</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1921</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1926</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1931</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1936</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1946</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1954</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1962</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1968</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1975</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1982</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1990</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>h1999</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>superf_ha</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>alt_min</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>alt_max</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>commentair</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>geom</td>
+<td>-&gt; à conserver (géométrie calée sur la carte de Cassini)</td>
+</tr>
+<tr>
+<td>b_incert</td>
+<td>-&gt; ne pas conserver (tout est à 0)</td>
+</tr>
+<tr>
+<td>b_nonpresent</td>
+<td>???</td>
+</tr>
+<tr>
+<td>lien_site_cassini</td>
+<td>-&gt; à conserver (seeAlso)</td>
+</tr>
+<tr>
+<td>b_italique</td>
+<td>-&gt; ne pas conserver (à intégrer dans une prochaine MAJ)</td>
+</tr>
+<tr>
+<td>b_fortifiee</td>
+<td>-&gt; à conserver</td>
+</tr>
+<tr>
+<td>b_typononconforme</td>
+<td>-&gt; ne pas conserver (à intégrer dans une prochaine MAJ)</td>
+</tr>
+<tr>
+<td>b_typononconform</td>
+<td>-&gt; ne pas conserver (à intégrer dans une prochaine MAJ)</td>
+</tr>
+<tr>
+<td>archi_nom</td>
+<td>-&gt; ne pas conserver (à intégrer dans une prochaine MAJ)</td>
+</tr>
+<tr>
+<td>archi_collateur</td>
+<td>-&gt; ne pas conserver (à intégrer dans une prochaine MAJ)</td>
+</tr>
+<tr>
+<td>archi_annexede</td>
+<td>-&gt; ne pas conserver (à intégrer dans une prochaine MAJ)</td>
+</tr>
+<tr>
+<td>“X_etiquette”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Y_etiquette”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Etiquette_1”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Etiquette_2”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Espacement_lettre”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Espacement_mot”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Taille_Police”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Ligne2Droite”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>“Ligne2AlaSuite”</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>nom_dioc</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>dx_ligne2</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+<tr>
+<td>dy_ligne2</td>
+<td>-&gt; ne pas conserver</td>
+</tr>
+</tbody>
+</table><h2 id="Réconciliation"><a class="anchor hidden-xs" href="#Réconciliation" title="Réconciliation"><span class="octicon octicon-link"></span></a>Réconciliation</h2><p>A completer.</p><p>Le processus de reconciliation est fondée sur la géometrie de l’objet et peut être fait automatiquement à partir de la requete spatiale (qui comprend une mesure de similarité entre chaînes de caractères) en SQL via PostgreSQL/PostGIS ci-dessous :</p><pre><code class="sql hljs"><span class="hljs-keyword">SELECT</span> a.id <span class="hljs-keyword">as</span> <span class="hljs-string">"id_cheflieu"</span>,
+       b.id <span class="hljs-keyword">AS</span> <span class="hljs-string">"id_toponyme"</span>,
+       a.nomcart,
+       b.nom,
+       <span class="hljs-keyword">coalesce</span>(similarity(a.nomcart,b.nom), <span class="hljs-number">0.</span>),
+       ST_DISTANCE(a.geom, b.geom),
+       a.geom <span class="hljs-keyword">as</span> <span class="hljs-string">"geom_cheflieu"</span>,
+       b.geom <span class="hljs-keyword">as</span> <span class="hljs-string">"geom_toponyme"</span>
+<span class="hljs-keyword">FROM</span> france_cassini_chefs_lieux a 
+<span class="hljs-keyword">JOIN</span> france_cassini_toponyms b
+<span class="hljs-keyword">ON</span> ST_DWithin(a.geom, b.geom, <span class="hljs-number">100</span>)
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">coalesce</span>(similarity(a.nomcart,b.nom),<span class="hljs-number">0.</span>), st_distance;
+</code></pre><p>Résultat : 5055 lignes dont 1039 avec une similarité inférieure à 1. Il faut vérifier manuellement les 1039 entrées. On peut également supposer que les entrées dans toponymes qui sont clocher, on les ignorer pour le processus manuelle de correction car on peut être certain que celles-ci sont des doublons.</p><p>Pour le restant 500 entrées (environ) potentiellement doublons de la table toponymes, il faut via QGIS suivre cette procédure :</p><p>Comment effacer un doublon ?</p><ul>
+<li>chercher deux symboles superposés (la categorisation par distance est utile, commencer par ceux dont le symbole est de taille 80-100 (très proches, donc très probablement un doublon)</li>
+<li>regarder le nom du lieu sur la carte et les informations sur la carte</li>
+<li>noter dans un document l’identifiant (champ ‘id’) de l’entrée de la table toponymes qui sera effacée plus tard</li>
+</ul><h1 id="Jeudi-9-août-2018"><a class="anchor hidden-xs" href="#Jeudi-9-août-2018" title="Jeudi-9-août-2018"><span class="octicon octicon-link"></span></a>Jeudi 9 août 2018</h1><ul>
+<li>
+<p>GeoHistoricalSchema : <a href="https://codeshare.io/5Myzny" target="_blank" rel="noopener">https://codeshare.io/5Myzny</a></p>
+</li>
+<li>
+<p>Test du vocab sur une donnée - Frasne (clocher): <a href="https://codeshare.io/G7D3Eb" target="_blank" rel="noopener">https://codeshare.io/G7D3Eb</a></p>
+</li>
+<li>
+<p>Intégration avec WHG : voir mail de Karl Grossner du 8 aout.</p>
+</li>
+</ul><h1 id="Jeudi-30-août-2018"><a class="anchor hidden-xs" href="#Jeudi-30-août-2018" title="Jeudi-30-août-2018"><span class="octicon octicon-link"></span></a>Jeudi 30 août 2018</h1><h2 id="Préparation-des-données-relationelles-pour-l’export-RDF"><a class="anchor hidden-xs" href="#Préparation-des-données-relationelles-pour-l’export-RDF" title="Préparation-des-données-relationelles-pour-l’export-RDF"><span class="octicon octicon-link"></span></a>Préparation des données relationelles pour l’export RDF</h2><pre><code class="sql hljs">
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">VIEW</span> travail.cassini_places <span class="hljs-keyword">AS</span> 
+ <span class="hljs-keyword">SELECT</span>
+ <span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> x.id_toponym <span class="hljs-keyword">IS</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'cl_'</span>::<span class="hljs-built_in">text</span> || x.id_cheflieu::<span class="hljs-built_in">text</span>
+            <span class="hljs-keyword">ELSE</span> <span class="hljs-string">'t_'</span>::<span class="hljs-built_in">text</span> || x.id_toponym::<span class="hljs-built_in">text</span>
+        <span class="hljs-keyword">END</span> <span class="hljs-keyword">AS</span> uid,
+    x.id_toponym,
+    x.id_cheflieu,
+    x.incertain,
+    x.commentaire,
+    x.nom,
+    x.geom,
+    x.geom_wgs84,
+    x.ruine,
+    x.type,
+    x.typerdf,
+    x.type_bd,
+    x.insee_l,
+    x.insee_c,
+    x.noman3,
+    x.nom1801,
+    x.nom1999,
+    x.type1794,
+    x.lien_site_cassini,
+    x.b_fortifiee,
+    x.creator
+   <span class="hljs-keyword">FROM</span> ( <span class="hljs-keyword">SELECT</span> a.id <span class="hljs-keyword">AS</span> id_toponym,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">integer</span> <span class="hljs-keyword">AS</span> id_cheflieu,
+            a.incertain,
+            a.commentaire,
+            a.nom,
+            <span class="hljs-string">'&lt;http://data.ign.fr/id/ignf/crs/RGF93LAMB93&gt; '</span>||st_astext(a.geom) <span class="hljs-keyword">AS</span> geom,
+            <span class="hljs-string">'&lt;http://www.opengis.net/def/crs/OGC/1.3/CRS84&gt; '</span>||st_astext(st_transform(a.geom, <span class="hljs-number">4326</span>)) <span class="hljs-keyword">AS</span> geom_wgs84,
+            a.ruine,
+            b.type,
+                <span class="hljs-keyword">CASE</span>
+                    <span class="hljs-keyword">WHEN</span> b.type::<span class="hljs-built_in">text</span> = <span class="hljs-string">'Calvaire ou Oratoire'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'croix'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'abbaye'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'abbaye'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'autre'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'lieu'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'autre lieu religieux'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'lieu'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'bourg'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'bourg'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'cabane'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'cabane'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'chapelle'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'chapelle'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'château'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'château'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'cimetière'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'cimetière'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'clocher'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'clocher'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'clocher succursale'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'clocher'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'commanderie'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'commanderie'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'corps de garde'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'corps_de_garde'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'croix'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'croix'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'fort'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'fort'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'gentilhommière'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'gentilhommière'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'hameau'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'hameau'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'maison'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'maison'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'moulin à vent'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'moulin_à_vent'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'moulin à eau'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'moulin_à_eau'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'port'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'port'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'justice'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'poteau_de_justice'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'prieuré'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'prieuré'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'redoute'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'redoute'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(b.type::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'ville'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'ville'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">ELSE</span> <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">text</span>
+                <span class="hljs-keyword">END</span> <span class="hljs-keyword">AS</span> typerdf,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> type_bd,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> insee_l,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> insee_c,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> noman3,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> nom1801,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> nom1999,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> type1794,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">character</span> <span class="hljs-built_in">varying</span> <span class="hljs-keyword">AS</span> lien_site_cassini,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">boolean</span> <span class="hljs-keyword">AS</span> b_fortifiee,
+            <span class="hljs-string">'The GeoHistoricalData group. http://geohistoricaldata.org'</span> <span class="hljs-keyword">as</span> creator
+           <span class="hljs-keyword">FROM</span> france_cassini_toponyms a
+             <span class="hljs-keyword">JOIN</span> types_ponctuels b <span class="hljs-keyword">ON</span> a.type_id = b.id
+        <span class="hljs-keyword">UNION</span> ALL
+         <span class="hljs-keyword">SELECT</span> <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">integer</span> <span class="hljs-keyword">AS</span> int4,
+            france_cassini_chefs_lieux.gid <span class="hljs-keyword">AS</span> id_cheflieu,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">boolean</span> <span class="hljs-keyword">AS</span> incertain,
+            france_cassini_chefs_lieux.commentair <span class="hljs-keyword">AS</span> commentaire,
+            france_cassini_chefs_lieux.nomcart <span class="hljs-keyword">AS</span> nom,
+            <span class="hljs-string">'&lt;http://data.ign.fr/id/ignf/crs/RGF93LAMB93&gt; '</span>||st_astext(france_cassini_chefs_lieux.geom) <span class="hljs-keyword">AS</span> geom,
+            <span class="hljs-string">'&lt;http://www.opengis.net/def/crs/OGC/1.3/CRS84&gt; '</span>||st_astext(st_transform(france_cassini_chefs_lieux.geom, <span class="hljs-number">4326</span>)) <span class="hljs-keyword">AS</span> geom_wgs84,
+            <span class="hljs-literal">NULL</span>::<span class="hljs-built_in">boolean</span> <span class="hljs-keyword">AS</span> ruine,
+            france_cassini_chefs_lieux.typecart <span class="hljs-keyword">AS</span> <span class="hljs-keyword">type</span>,
+                <span class="hljs-keyword">CASE</span>
+                    <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">lower</span>(france_cassini_chefs_lieux.typecart::<span class="hljs-built_in">text</span>) = <span class="hljs-string">'autre'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'lieu'</span>::<span class="hljs-built_in">text</span>
+                    <span class="hljs-keyword">ELSE</span> <span class="hljs-keyword">lower</span>(france_cassini_chefs_lieux.typecart::<span class="hljs-built_in">text</span>)
+                <span class="hljs-keyword">END</span> <span class="hljs-keyword">AS</span> typerdf,
+            france_cassini_chefs_lieux.type_bd,
+            france_cassini_chefs_lieux.insee_l,
+            regexp_replace(france_cassini_chefs_lieux.insee_c::<span class="hljs-built_in">text</span>, <span class="hljs-string">'\s+'</span>::<span class="hljs-built_in">text</span>, <span class="hljs-string">''</span>::<span class="hljs-built_in">text</span>) <span class="hljs-keyword">AS</span> insee_c,
+            france_cassini_chefs_lieux.noman3,
+            france_cassini_chefs_lieux.nom1801,
+            france_cassini_chefs_lieux.nom1999,
+            france_cassini_chefs_lieux.type1794,
+            france_cassini_chefs_lieux.lien_site_cassini,
+            france_cassini_chefs_lieux.b_fortifiee,
+	   <span class="hljs-string">'Claude Motte (LaDéHiS-CRH(UMR 8558)-EHESS), Marie-Christine Vouloir (LaDéHiS-CRH(UMR 8558)-EHESS) and the GeoHistoricalData group. http://geohistoricaldata.org'</span> <span class="hljs-keyword">as</span> creator
+           <span class="hljs-keyword">FROM</span> france_cassini_chefs_lieux) <span class="hljs-keyword">as</span> x;
+	
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">VIEW</span> travail.cassini_places_statuses <span class="hljs-keyword">AS</span> 
+ <span class="hljs-keyword">SELECT</span> cassini_places.uid,
+    <span class="hljs-string">'Commune1794'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">type</span>,
+    <span class="hljs-string">'Chef lieu communal'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">status</span>,
+    <span class="hljs-string">'Commune principal town'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> status_en,
+    <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/RecensementAnIII'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>
+   <span class="hljs-keyword">FROM</span> travail.cassini_places
+  <span class="hljs-keyword">WHERE</span> type1794::<span class="hljs-built_in">text</span> ~~* <span class="hljs-string">'E'</span>::<span class="hljs-built_in">text</span>
+<span class="hljs-keyword">UNION</span> ALL
+ <span class="hljs-keyword">SELECT</span> uid,
+    <span class="hljs-string">'Paroisse'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">type</span>,
+    <span class="hljs-string">'Chef lieu paroissial d''Ancien Régime'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">status</span>,
+    <span class="hljs-string">'Ancien Régime parish'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> status_en,
+    <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/GeoreferencedCassiniBnF'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>
+   <span class="hljs-keyword">FROM</span> travail.cassini_places
+  <span class="hljs-keyword">WHERE</span> id_cheflieu <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">AND</span> cassini_places.type::<span class="hljs-built_in">text</span> ~~* <span class="hljs-string">'clocher'</span>::<span class="hljs-built_in">text</span>
+<span class="hljs-keyword">UNION</span> ALL
+ <span class="hljs-keyword">SELECT</span> uid,
+    <span class="hljs-string">'Commune1999'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">type</span>,
+    <span class="hljs-string">'Chef lieu communal'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">status</span>,
+    <span class="hljs-string">'Commune principal town'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> status_en,
+    <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/BDCarto1999'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>
+   <span class="hljs-keyword">FROM</span> travail.cassini_places
+  <span class="hljs-keyword">WHERE</span> type_bd::<span class="hljs-built_in">text</span> = <span class="hljs-string">'co'</span>::<span class="hljs-built_in">text</span>
+<span class="hljs-keyword">UNION</span> ALL
+ <span class="hljs-keyword">SELECT</span> uid,
+    <span class="hljs-string">'Succursale'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">type</span>,
+    <span class="hljs-string">'Succursale paroissiale d''Ancien Régime'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">status</span>,
+    <span class="hljs-string">'Ancien Régime parish subsidiary'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> status_en,
+    <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/RecensementAnIII'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>
+   <span class="hljs-keyword">FROM</span> travail.cassini_places
+  <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">type</span>::<span class="hljs-built_in">text</span> ~~* <span class="hljs-string">'clocher succursale'</span>::<span class="hljs-built_in">text</span>;
+
+<span class="hljs-comment">--DROP VIEW  travail.cassini_places_placenames;</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">VIEW</span> travail.cassini_places_placenames <span class="hljs-keyword">AS</span>
+    <span class="hljs-keyword">SELECT</span> x.nom,
+    x.place_id,
+    x.source,
+    x.numero
+   <span class="hljs-keyword">FROM</span> ( <span class="hljs-keyword">SELECT</span> nom,
+            uid <span class="hljs-keyword">AS</span> place_id,
+            <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/GeoreferencedCassiniBnF'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>,
+            <span class="hljs-number">1</span> <span class="hljs-keyword">AS</span> numero
+           <span class="hljs-keyword">FROM</span> travail.cassini_places
+        <span class="hljs-keyword">UNION</span> ALL
+         <span class="hljs-keyword">SELECT</span> noman3,
+            uid,
+            <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/RecensementAnIII'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>,
+            <span class="hljs-number">2</span>
+           <span class="hljs-keyword">FROM</span> travail.cassini_places
+        <span class="hljs-keyword">UNION</span> ALL
+         <span class="hljs-keyword">SELECT</span> nom1801,
+                uid,
+            <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/Recensement1801'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>,
+            <span class="hljs-number">3</span>
+           <span class="hljs-keyword">FROM</span> travail.cassini_places
+        <span class="hljs-keyword">UNION</span> ALL
+         <span class="hljs-keyword">SELECT</span> nom1999,
+            uid,
+            <span class="hljs-string">'http://data.geohistoricaldata.org/id/source/BDCarto1999'</span>::<span class="hljs-built_in">text</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">source</span>,
+            <span class="hljs-number">4</span>
+           <span class="hljs-keyword">FROM</span> travail.cassini_places) x
+  <span class="hljs-keyword">WHERE</span> x.nom <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">AND</span> x.nom::<span class="hljs-built_in">text</span> ~* <span class="hljs-string">'[a-zA-Z]+'</span>::<span class="hljs-built_in">text</span>;
+
+  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> travail.cassini_places
+
+</code></pre><h1 id="Mercredi-12-septembre-2018"><a class="anchor hidden-xs" href="#Mercredi-12-septembre-2018" title="Mercredi-12-septembre-2018"><span class="octicon octicon-link"></span></a>Mercredi 12 septembre 2018</h1><ul>
+<li>la liste de typologies d’entités a été raffinée</li>
+<li>Définition des règles de mapping en R2RML entre la base de données SQL et l’ontologie : <a href="https://codeshare.io/5Q7D4W" target="_blank" rel="noopener">https://codeshare.io/5Q7D4W</a></li>
+</ul><h1 id="Mercredi-10-octobre-2018"><a class="anchor hidden-xs" href="#Mercredi-10-octobre-2018" title="Mercredi-10-octobre-2018"><span class="octicon octicon-link"></span></a>Mercredi 10 octobre 2018</h1><ul>
+<li>Amélioration des règles de mapping afin d’integrer le statut de communes</li>
+<li>la question sur l’attribution de droits d’auteurs a été reglée : au niveau du jeu de données, on pointe au projet GeohistoricalData et pour certaines données (place), le droit est attribué à Claude Motte</li>
+<li>envoie d’un jeu de données en RDF à Karl Grossner pour avoir des retours sur le modèle…</li>
+</ul><h1 id="Post-traitements"><a class="anchor hidden-xs" href="#Post-traitements" title="Post-traitements"><span class="octicon octicon-link"></span></a>Post-traitements</h1><p>Rechercher/remplacer sur :</p><ul>
+<li>Supprimer <code>ghs:hasStatus [] ;</code></li>
+<li>Remplacer <code>http://data.geohistoricaldata.org/def/places/http://data.geohistoricaldata.org</code> par <code>http://data.geohistoricaldata.org</code></li>
+<li>Supprimer les matches du regex <code>\[[^\.]+\] \.</code> : ce sont les blanknodes temporels qui ‘traînent’.</li>
+</ul></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#GeoHistoricalData2RDF" title="GeoHistoricalData2RDF">GeoHistoricalData2RDF</a></li>
+<li class=""><a href="#Mardi-7-août-2018" title="Mardi 7 août 2018">Mardi 7 août 2018</a></li>
+<li class=""><a href="#Pré-traitements-à-faire--travail-de-reconciliation-de-données" title="Pré-traitements à faire : travail de reconciliation de données">Pré-traitements à faire : travail de reconciliation de données</a><ul class="nav">
+<li class="invisable-node"><ul class="nav">
+<li class=""><a href="#_toponymes" title="_toponymes:">_toponymes:</a></li>
+<li class=""><a href="#_taches_urbaines" title="_taches_urbaines">_taches_urbaines</a></li>
+<li class=""><a href="#_chefs_lieux" title="_chefs_lieux:">_chefs_lieux:</a></li>
+</ul>
+</li>
+<li class=""><a href="#Réconciliation" title="Réconciliation">Réconciliation</a></li>
+</ul>
+</li>
+<li class=""><a href="#Jeudi-9-août-2018" title="Jeudi 9 août 2018">Jeudi 9 août 2018</a></li>
+<li class=""><a href="#Jeudi-30-août-2018" title="Jeudi 30 août 2018">Jeudi 30 août 2018</a><ul class="nav">
+<li class=""><a href="#Préparation-des-données-relationelles-pour-l’export-RDF" title="Préparation des données relationelles pour l’export RDF">Préparation des données relationelles pour l’export RDF</a></li>
+</ul>
+</li>
+<li class=""><a href="#Mercredi-12-septembre-2018" title="Mercredi 12 septembre 2018">Mercredi 12 septembre 2018</a></li>
+<li><a href="#Mercredi-10-octobre-2018" title="Mercredi 10 octobre 2018">Mercredi 10 octobre 2018</a></li>
+<li class=""><a href="#Post-traitements" title="Post-traitements">Post-traitements</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#GeoHistoricalData2RDF" title="GeoHistoricalData2RDF">GeoHistoricalData2RDF</a></li>
+<li class=""><a href="#Mardi-7-août-2018" title="Mardi 7 août 2018">Mardi 7 août 2018</a></li>
+<li class=""><a href="#Pré-traitements-à-faire--travail-de-reconciliation-de-données" title="Pré-traitements à faire : travail de reconciliation de données">Pré-traitements à faire : travail de reconciliation de données</a><ul class="nav">
+<li class="invisable-node"><ul class="nav">
+<li class=""><a href="#_toponymes" title="_toponymes:">_toponymes:</a></li>
+<li class=""><a href="#_taches_urbaines" title="_taches_urbaines">_taches_urbaines</a></li>
+<li class=""><a href="#_chefs_lieux" title="_chefs_lieux:">_chefs_lieux:</a></li>
+</ul>
+</li>
+<li class=""><a href="#Réconciliation" title="Réconciliation">Réconciliation</a></li>
+</ul>
+</li>
+<li class=""><a href="#Jeudi-9-août-2018" title="Jeudi 9 août 2018">Jeudi 9 août 2018</a></li>
+<li class=""><a href="#Jeudi-30-août-2018" title="Jeudi 30 août 2018">Jeudi 30 août 2018</a><ul class="nav">
+<li class=""><a href="#Préparation-des-données-relationelles-pour-l’export-RDF" title="Préparation des données relationelles pour l’export RDF">Préparation des données relationelles pour l’export RDF</a></li>
+</ul>
+</li>
+<li class=""><a href="#Mercredi-12-septembre-2018" title="Mercredi 12 septembre 2018">Mercredi 12 septembre 2018</a></li>
+<li><a href="#Mercredi-10-octobre-2018" title="Mercredi 10 octobre 2018">Mercredi 10 octobre 2018</a></li>
+<li class=""><a href="#Post-traitements" title="Post-traitements">Post-traitements</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
