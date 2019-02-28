@@ -47,7 +47,7 @@
 <http://data.geohistoricaldata.org/id/source/cassini>
   a dul:InformationRealization;
   dc:identifier "info:doi/some.fancy.doi";
-  ghp:isObservableAt [
+  dul:isObservableAt [
       a time:Interval;
       time:hasBeginning [
         a time:Instant;
@@ -62,7 +62,7 @@
 <http://data.geohistoricaldata.org/id/source/decretsassembleeconstituante>
 a dul:InformationObject;
   dc:identifier "info:doi/some.other.fancy.doi";
-  ghp:isObservableAt [
+  dul:isObservableAt [
       a time:Interval;
       time:hasBeginning [
         a time:Instant;
