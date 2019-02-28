@@ -95,7 +95,7 @@ cito:citesAsEvidence a owl:ObjectProperty ;
     rdfs:comment "The citing entity cites the cited entity as source of factual evidence for statements it contains."@en .
 
 # Properties inherited from Pleiades
-
+# N'existe plus dans LinkedPlaces
 pleiades:hasFeatureType	a	owl:ObjectProperty;
 						rdfs:comment "Links a place to the type of geographic feature to which it belongs."@en, "Lie un lieu au type d'entité géographique auquel il appartient."@fr;
 						rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
