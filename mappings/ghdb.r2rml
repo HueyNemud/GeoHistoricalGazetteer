@@ -79,7 +79,7 @@ mapping:BlankNodeGeometry
   ];
 
   rr:predicateObjectMap [
-    rr:predicate locn:geometry;
+    rr:predicate ghp:geometry;
     rr:objectMap [ rr:column "geom"; rr:datatype geo:wktLiteral ];
   ].
 
@@ -93,7 +93,7 @@ mapping:BlankNodeGeometryWGS84
   ];
 
   rr:predicateObjectMap [
-    rr:predicate locn:geometry;
+    rr:predicate ghp:geometry;
     rr:objectMap [ rr:column "geom_wgs84"; rr:datatype geo:wktLiteral ];
   ].
 
