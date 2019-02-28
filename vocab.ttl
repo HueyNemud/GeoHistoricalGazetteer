@@ -35,13 +35,6 @@
   rdfs:comment "La définition d'une Place (Lieu) est celle de Pleiades."@fr;
   rdfs:label "Lieu"@fr, "Place"@en .
 
-# La classe TemporalEntity permet d'encoder les temps valides des ressources observées (cf. dul:isObservableAt).
-# La classe dul:TimeInterval est très faible; on crée une nouvelle classe qui permet de 'tirer' la classe TemporalEntity du vocabulaire Time et ainsi de décrire des intervalles et des instants.
-:TemporalEntity a owl:Class ;
-  rdfs:subClassOf dul:TimeInterval, time:TemporalEntity ;
-  rdfs:comment "Une entité temporelle encode une primitive temporelle comme un instant, un intervalle de temps, une date, etc."@fr;
-  rdfs:label "Entité Temporelle"@fr, "TemporalEntity"@en .
-  
 # DULE QUALITIES PRINCIPALES, I.E. ATTRIBUTS TEMPORALISÉS DE LA CLASSE PLACE
 
 # Une 'Location' d'une 'Place' modélise une emprise géographique de cette Place.
@@ -74,6 +67,8 @@
 # RELATIONS ENTRE PLACE ET SES QUALITÉS PRINCIPALES
 
 # Relation entre :Place et :Location
+# dul:hasQuality : domain->dul:Entity, range->dul:Quality
+# lp:hasLocation : redéfini dans ce fichier, cf. lp:hasLocation. domain->lp:Place, range->lp:Location
 :hasLocation  a owl:ObjectProperty ;
   rdfs:subPropertyOf dul:hasQuality, lp:hasLocation ;
   rdfs:domain :Place ;
@@ -123,11 +118,6 @@
   rdfs:domain dul:SpaceRegion ;
   rdfs:range locn:Geometry ;
   rdfs:label "a pour géométrie"@fr, "has geometry"@en .
-
-# :isObservableAt :: NOT IMPLEMENTED
-# On ne créer pas de propriété :isObservableAt qui hériterait de dul:isObservableAt et lp:when.
-# Tant que lp:when n'est pas formalisé, il s'agirait d'une redéfinition tout à fait inutile.
-
 
 
 #################################################################
@@ -237,21 +227,6 @@ locn:geometry a rdf:Property ;
     rdfs:isDefinedBy <http://www.w3.org/ns/locn> ;
     rdfs:range locn:Geometry.
 
-
-# -----------------------------------------------------------------------
-#      Classes & relations imports from Time 
-# -----------------------------------------------------------------------
-
-time:TemporalEntity
-  rdf:type owl:Class ;
-  rdfs:comment "A temporal interval or instant."@en ;
-  rdfs:label "Temporal entity"@en ;
-  rdfs:subClassOf owl:Thing ;
-  owl:unionOf (
-      :Instant
-      :Interval
-    ) ;
-  skos:definition "A temporal interval or instant."@en .
 
 # -----------------------------------------------------------------------
 #      Classes & relations imports from Citation Ontology (CiteO) 
