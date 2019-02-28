@@ -1,0 +1,429 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix mapping: <#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pleiades: <http://pleiades.stoa.org/places/vocab#> .
+@prefix dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>.
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#>
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix ghs: <http://data.geohistoricaldata.org/def/places#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+
+mapping:PlaceTable
+  rr:sqlQuery """
+        SELECT c.* FROM travail.cassini_places AS c;
+    """.
+
+mapping:StatusTable
+  rr:sqlQuery """
+        SELECT c.* FROM travail.cassini_places_statuses AS c;
+    """.
+
+mapping:PlaceNameTable
+  rr:sqlQuery """
+        SELECT c.* FROM travail.cassini_places_placenames AS c;
+    """.
+
+
+#------------------------------
+# LOCATIONS
+#------------------------------
+mapping:Location
+  rr:logicalTable mapping:PlaceTable;
+    rr:subjectMap [
+      rr:template "http://data.geohistoricaldata.org/id/location/{uid}";
+      rr:class ghs:Location;
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate dul:hasRegion;
+    
+    rr:objectMap [ 
+      rr:template "BlankNodeGeometry{uid}";
+      rr:termType rr:BlankNode;
+    ]
+   ];
+
+   rr:predicateObjectMap [
+    rr:predicate dul:hasRegion;
+    
+    rr:objectMap [ 
+      rr:template "BlankNodeGeometryWGS84{uid}";
+      rr:termType rr:BlankNode;
+    ]
+   ];
+
+   rr:predicateObjectMap [
+      rr:predicate mapping:attestedIn;
+      rr:objectMap [ rr:termType rr:IRI; rr:template "http://data.geohistoricaldata.org/id/source/GeoreferencedCassiniBnF"];
+   ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:isObservableAt;
+    rr:objectMap [ 
+      rr:template "LocationTimeSpan{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ].
+
+mapping:BlankNodeGeometry
+  rr:logicalTable mapping:PlaceTable;
+
+  rr:subjectMap [
+      rr:template "BlankNodeGeometry{uid}";
+      rr:termType rr:BlankNode;
+      rr:class dul:SpaceRegion;
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate locn:geometry;
+    rr:objectMap [ rr:column "geom"; rr:datatype geo:wktLiteral ];
+  ].
+
+mapping:BlankNodeGeometryWGS84
+  rr:logicalTable mapping:PlaceTable;
+
+  rr:subjectMap [
+      rr:template "BlankNodeGeometryWGS84{uid}";
+      rr:termType rr:BlankNode;
+      rr:class dul:SpaceRegion;
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate locn:geometry;
+    rr:objectMap [ rr:column "geom_wgs84"; rr:datatype geo:wktLiteral ];
+  ].
+
+
+
+#----------------------------------------------
+# LOCATION TEMPORAL NODES
+#----------------------------------------------
+mapping:LocationTimeSpan
+  rr:logicalTable mapping:PlaceTable;
+  rr:subjectMap [
+        rr:template "LocationTimeSpan{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Interval;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:hasBeginning;
+    rr:objectMap [ 
+      rr:template "LocationTimeSpanBeginning{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:hasEnd;
+    rr:objectMap [ 
+      rr:template "LocationTimeSpanEnd{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ].
+
+mapping:LocationTimeSpanBeginning
+  rr:logicalTable mapping:PlaceTable;
+  rr:subjectMap [
+        rr:template "LocationTimeSpanBeginning{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "1756"; rr:datatype xsd:gYear ];
+  ].
+
+mapping:LocationTimeSpanEnd
+  rr:logicalTable mapping:PlaceTable;
+  rr:subjectMap [
+        rr:template "LocationTimeSpanEnd{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "179u"; rr:datatype xsd:gYear ];
+  ].
+
+
+
+#----------------------------------------------
+# STATUS NODES
+#----------------------------------------------
+mapping:BlankNodeStatus
+  rr:logicalTable mapping:StatusTable;
+
+  rr:subjectMap [
+        rr:template "BlankNodeStatus{type}{uid}";
+        rr:termType rr:BlankNode;
+        rr:class dul:Quality;        
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate dul:hasDataValue;
+    rr:objectMap [ rr:column "status"; rr:language "fr"];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate dul:hasDataValue;
+    rr:objectMap [ rr:column "status_en"; rr:language "en"];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:isObservableAt;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatus{type}Time{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:attestedIn;
+    rr:objectMap [ rr:termType rr:IRI; rr:template "{source}"];
+  ].
+
+#----------------------------------------------
+# STATUS TEMPORAL NODES
+#----------------------------------------------
+
+mapping:BlankNodeStatusCommune1794Time
+  rr:logicalTable mapping:StatusTable;
+  rr:subjectMap [
+        rr:template "BlankNodeStatusCommune1794Time{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "1794"; rr:datatype xsd:gYear ];
+  ].
+
+mapping:BlankNodeStatusCommune1999Time
+  rr:logicalTable mapping:StatusTable;
+  rr:subjectMap [
+        rr:template "BlankNodeStatusCommune1999Time{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "1999"; rr:datatype xsd:gYear ];
+  ].
+
+
+mapping:BlankNodeStatusParoisseTime
+  rr:logicalTable mapping:StatusTable;
+  rr:subjectMap [
+        rr:template "BlankNodeStatusParoisseTime{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Interval;        
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate time:hasBeginning;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusParoisseTimeBeginning{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:hasEnd;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusParoisseTimeEnd{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ].
+
+mapping:BlankNodeStatusParoisseTimeBeginning
+  rr:logicalTable mapping:StatusTable;
+  rr:subjectMap [
+        rr:template "BlankNodeStatusParoisseTimeBeginning{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "1756"; rr:datatype xsd:gYear ];
+  ].
+
+mapping:BlankNodeStatusParoisseTimeEnd
+  rr:logicalTable mapping:StatusTable;
+  rr:subjectMap [
+        rr:template "BlankNodeStatusParoisseTimeEnd{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "179u"; rr:datatype xsd:gYear ];
+  ].
+
+mapping:BlankNodeStatusSuccursaleTime
+  rr:logicalTable mapping:StatusTable;
+  rr:subjectMap [
+        rr:template "BlankNodeStatusSuccursaleTime{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate time:hasBeginning;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusSuccursaleTimeBeginning{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:hasEnd;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusSuccursaleTimeTimeEnd{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ].
+
+
+mapping:BlankNodeStatusSuccursaleTimeBeginning
+  rr:logicalTable mapping:PlaceTable;
+
+  rr:subjectMap [
+        rr:template "BlankNodeStatusSuccursaleTimeBeginning{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "1756"; rr:datatype xsd:gYear ];
+  ].
+
+mapping:BlankNodeStatusSuccursaleTimeBeginning
+  rr:logicalTable mapping:PlaceTable;
+  rr:subjectMap [
+        rr:template "BlankNodeStatusSuccursaleTimeBeginning{uid}";
+        rr:termType rr:BlankNode;
+        rr:class time:Instant;        
+  ];
+  rr:predicateObjectMap [
+    rr:predicate time:inXSDgYear;
+    rr:objectMap [ rr:constant "179u"; rr:datatype xsd:gYear ];
+  ].
+  
+
+#------------------------------
+# PLACENAMES
+#------------------------------
+mapping:PlaceName
+  rr:logicalTable mapping:PlaceNameTable;
+
+  rr:subjectMap [
+      rr:template "http://data.geohistoricaldata.org/id/placename/{place_id}_{numero}";
+      rr:class ghs:Name;
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate dul:hasDataValue;
+    rr:objectMap [ rr:column "nom"; rr:datatype xsd:String ];
+   ];
+
+   rr:predicateObjectMap [
+      rr:predicate ghs:attestedIn;
+      rr:objectMap [ rr:termType rr:IRI; rr:template "http://data.geohistoricaldata.org/id/source/{source}"];
+   ].
+
+
+#------------------------------
+# PLACES
+#------------------------------
+mapping:Place
+  rr:logicalTable mapping:PlaceTable;
+  
+  rr:subjectMap [
+    rr:template "http://data.geohistoricaldata.org/id/place/{uid}";
+    rr:class ghs:Place;
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate skos:closeMatch;
+    rr:objectMap [ rr:termType rr:IRI; rr:template "http://id.insee.fr/geo/commune/{insee_c}" ];
+   ];
+
+  rr:predicateObjectMap [
+    rr:predicate dc:creator;
+    rr:objectMap [ rr:column "creator"; rr:datatype xsd:String];
+   ];
+
+  rr:predicateObjectMap [
+    rr:predicate pleiades:hasFeatureType;
+    rr:objectMap [ rr:termType rr:IRI; rr:template "http://data.geohistoricaldata.org/id/cassini/legend/{typerdf}"];
+   ];
+
+  rr:predicateObjectMap [
+    rr:predicate rdfs:seeAlso;
+    rr:objectMap [ rr:column "lien_site_cassini"; rr:datatype xsd:anyURI];
+   ];
+
+  rr:predicateObjectMap [
+    rr:predicate dc:identifier;
+    rr:objectMap [ rr:column "uid"; rr:datatype xsd:Integer];
+   ];
+
+  rr:predicateObjectMap [
+    rr:predicate dc:relation;
+    rr:objectMap [ rr:column "insee_c"; rr:datatype xsd:Integer];
+   ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:hasLocation;
+    rr:objectMap [
+      rr:parentTriplesMap mapping:Location;
+      rr:joinCondition [
+        rr:child "uid";
+        rr:parent "uid";
+      ];
+    ];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:hasName;
+    rr:objectMap [
+      rr:parentTriplesMap mapping:PlaceName;
+      rr:joinCondition [
+        rr:child "uid";
+        rr:parent "place_id";
+      ];
+    ];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:hasStatus;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusCommune1794{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:hasStatus;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusCommune1999{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:hasStatus;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusParoisse{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate ghs:hasStatus;
+    rr:objectMap [ 
+      rr:template "BlankNodeStatusSuccursale{uid}";
+      rr:termType rr:BlankNode;
+    ];
+  ].   
