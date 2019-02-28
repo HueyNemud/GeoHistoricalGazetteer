@@ -1,0 +1,37 @@
+:GeoreferencedCassiniBnF a dul:InformationRealization;
+  rdfs:label " Carte générale de la France géréférencée"@fr,  "Carte de Cassini géoréférencée"@fr, "Georeferenced Cassini's Map of France"@en;
+  rdfs:description "Version géoréférencée de l'exemplaire conservé au département des Cartes et plans de la BnF est l’un des rares aquarellés à la main dans les années 1780, chaque feuille en a été découpée en 21 rectangles collés ensuite sur une toile de jute afin d’en permettre le pliage et le transport aisés." ;
+  foaf:homepage <https://gallica.bnf.fr/html/und/cartes/france-en-cartes/la-carte-de-cassini> ;
+  :attestedIn [
+      a time:Interval;
+      time:hasBeginning [
+        a time:Instant;
+        time:inXSDgYear "1756"^^xsd:gYear 
+      ];
+      time:hasEnd [
+        a time:Instant;
+        time:inXSDgYear "179x"^^xsd:gYear 
+      ]
+    ].
+
+:RecensementAnIII a dul:InformationRealization; 
+  rdfs:label "Source du recensement de l'An III"@fr, "AN III census"@en;
+  :attestedIn [
+      a time:Instant;
+      time:inXSDgYear "1794"^^xsd:gYear 
+  ].
+
+:BDCarto1999 a dul:InformationRealization;
+  rdfs:label "Edition de la BDCARTO de l'IGN de 1999"@fr, "Edition 1999 of the database 'BDCARTO' by the French national mapping agency"@en;
+  :attestedIn [
+      a time:Instant;
+      time:inXSDgYear "1999"^^xsd:gYear 
+  ].
+
+
+:Recensement1801 a dul:InformationRealization;
+  rdfs:label "Source historique de 1801, à vérifier"@fr, "1801 historical source, to check"@en;
+  :attestedIn [
+      a time:Instant;
+      time:inXSDgYear "1801"^^xsd:gYear 
+  ].

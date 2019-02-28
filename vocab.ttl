@@ -1,289 +1,329 @@
 @prefix :	<http://data.geohistoricaldata.org/def/places#> .
+@prefix dul:  <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
+@prefix lp:  <http://linkedplaces.org/places#> .
+@prefix locn:  <http://www.w3.org/ns/locn#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix cito:  <http://purl.org/spar/cito/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/#> .
 @prefix rdf:  	 <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  	 <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  	 <http://www.w3.org/2002/07/owl#> .
 @prefix xsd:  	 <http://www.w3.org/2001/XMLSchema#> .
-@prefix dc:  	 <http://purl.org/dc/elements/1.1/#> .
-@prefix xml:  	 <http://www.w3.org/XML/1998/namespace/> .
-@prefix pleiades:  	 <https://pleiades.stoa.org/places/vocab#> .
-@prefix dul:  	 <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
-@prefix time:  	 <http://www.w3.org/2006/time#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix locn: <http://www.w3.org/ns/locn#> .
-@prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix cito: <http://purl.org/spar/cito/>.
-@prefix prov: <http://www.w3.org/ns/prov#>.
-@base	<http://data.geohistoricaldata.org/def/places#> .
+
 
 <http://data.geohistoricaldata.org/def/places#> rdf:type owl:Ontology ; 
-                                                dc:title "geohistoricaldata"@en ;
-                                                dc:description "A vocabulary to model the history of places described by multiple sources of information."@en ;
+                                                dc:title "GeoHistoricalPlaces"@en ;
                                                 dc:description "Un vocabulaire pour modéliser l'historique de lieux décrits par des sources d'information multiples."@fr ;
+                                                dc:description "A vocabulary to model the history of places described by multiple sources of information."@en ;
                                                 dc:description "Ein Vokabular zur Modellierung der Geschichte von Orten, die durch mehrere Informationsquellen beschrieben werden."@de .
 
-# -----------------------------------------------------------	---
-# Définitions héritées du vocabulaire de Nathalie (+imports externes). 
-# --------------------------------------------------------------
+##############################################
+#     GeoHistoricalPlaces core definitions
+##############################################
 
-# Classes inhereted from Pleiades
+# -----------------------------------
+#        Classes definitions
+# -----------------------------------
 
-pleiades:Place	a owl:Class;
-  rdfs:comment "Dans Pléiades, les lieux sont des concepts. Ce sont des abstractions, des vues de l'esprit, intangibles, des points cartographiables à la surface de la terre. Même s'ils sont généralement étroitement liés aux entités géographiques du monde réel - une mer, une baie, une rivière, une chaîne de montagnes, un col, une route, une route, une colonie ou une région ethnique - ils n'ont pas d'attributs spatiaux ou temporels qui leur sont propres. [...] Un lieu peut n'être connu que par un nom mentionné dans une source ancienne, sans qu'il y ait de trace matérielle associée; à l'inverse, un site archéologique peut être considéré comme un lieu même si l'on ne sait pas comment il s'appelait dans l'antiquité. [...] Les lieux peuvent ne pas être plus grands qu'une maison ou aussi grands qu'un empire, être temporellement durables ou éphémères. Ils peuvent s'étendre, se réduire et évoluer au fil du temps. Un lieu peut être anonyme, non localisé, faussement attesté ou même mythique."@fr, 
-  "In Pleiades, places are conceptual entities. They are objects of thought, speech, or writing, not tangible, mappable points on the earth’s surface. Even though they are usually tied closely to some aspect or feature of the physical world — a sea, a bay, a river, a mountain range, a pass, a road, a settlement, or an ethnic region — They have no spatial or temporal attributes of their own. [...] A place can be known only through a name mentioned an ancient source, without any surviving material correlate; conversely, an archaeological site can be understood as a place even if we do not know what it was called in antiquity. [...] Places may be no larger than a family dwelling or as big as an empire, be temporally enduring or fleeting. They may expand, contract and evolve over time. A place may be unnamed, unlocated, falsely attested or even mythical."@en;
-  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
-  rdfs:seeAlso <https://pleiades.stoa.org/help/data-structure>;
-  rdfs:label "Lieu"@fr, "Place"@en.
-				
-pleiades:Name 	a owl:Class;
-  rdfs:comment "On peut associer divers noms à un lieu. Un nom reflète l'identité d'un lieu en langage naturel et non son emplacement physique sur le terrain. Les noms n'ont pas de coordonnées spatiales, mais ils sont toujours annotés avec la ou les périodes de temps de la ou des sources textuelles dans lesquelles ils sont attestés. Comme pour les localisations, un lieu unique peut avoir plusieurs noms, mais un nom individuel peut être associé à un seul et unique lieu (même si cette même chaîne de caractères est aussi attestée comme nom pour un autre lieu)."@fr, 
-  "Names are also connected with places. A name reflects the identity of a place in human language, not its physical location in the landscape. Names have no spatial coordinates, but they are always annotated with the time period(s) of the textual source(s) in which they are attested. As with locations, a single place can have multiple names, but an individual name can be associated with one and only one place (even if the same sequence of characters is attested as a name for another place as well)."@en;
-  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
-  rdfs:label "Nom"@fr, "Name"@en.
-				
-pleiades:Location 	a owl:Class;
-  rdfs:comment "Une localisation associe un lieu à des coordonnées dans l'espace. Une localisation identifie une zone d'intérêt spécifique à la surface de la terre, qui est associée à un lieu au cours d'une période donnée. Un lieu peut contenir plusieurs localisations. Selon les preuves dont on dispose, le fait d'associer une localisation à un lieu peut présenter divers degrés de certitude ; certains lieux, attestés par leur nom dans les sources anciennes, peuvent ne pas avoir de localisation associée faute de connaissances suffisantes pour localiser de façon fiable le site ou la zone ancienne en question."@fr, 
-  "Locations connect places to coordinates in space. A location identifies a specific area of interest on the earth's surface that is associated with a place during a particular date range. A place can contain multiple locations. Depending on the state of the evidence, the association between location and place may vary in certainty; some places, attested by name in ancient sources, may have no associated location at all because modern scholarship cannot pinpoint reliably the ancient site or area in question."@en;
-  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
-  rdfs:seeAlso <https://pleiades.stoa.org/help/data-structure>;
-  rdfs:label "Localisation"@fr, "Location"@en.
+# La classe Place lie deux classes des vocabulaires DUL et LinkedPlaces : 
+# - dul:PhysicalPlace : un objet physique instrinsèquement localisé, par exemple un lac.
+# - lp:Place : la représentation abstraite d'un lieu géographique.
+:Place a owl:Class ;
+  rdfs:subClassOf dul:PhysicalPlace, lp:Place ;
+  rdfs:comment "La définition d'une Place (Lieu) est celle de Pleiades."@fr;
+  rdfs:label "Lieu"@fr, "Place"@en .
 
-# Classes inhereted from DUL
+# La classe TemporalEntity permet d'encoder les temps valides des ressources observées (cf. dul:isObservableAt).
+# La classe dul:TimeInterval est très faible; on crée une nouvelle classe qui permet de 'tirer' la classe TemporalEntity du vocabulaire Time et ainsi de décrire des intervalles et des instants.
+:TemporalEntity a owl:Class ;
+  rdfs:subClassOf dul:TimeInterval, time:TemporalEntity ;
+  rdfs:comment "Une entité temporelle encode une primitive temporelle comme un instant, un intervalle de temps, une date, etc."@fr;
+  rdfs:label "Entité Temporelle"@fr, "TemporalEntity"@en .
+  
+# DULE QUALITIES PRINCIPALES, I.E. ATTRIBUTS TEMPORALISÉS DE LA CLASSE PLACE
 
-dul:PhysicalPlace	a owl:Class;
+# Une 'Location' d'une 'Place' modélise une emprise géographique de cette Place.
+# Cette emprise peut être décrite par une référence spatiale directe à l'aide des classes dul:SpaceRegion et locn:Geometry.
+:Location a owl:Class ;
+  rdfs:subClassOf dul:Quality, lp:Location ;
+  rdfs:label "Emplacement"@fr, "Location"@en .
+
+# Une dénomination de la 'Place'. Le vocabulaire est agnistique quant à la nature de la dénomination.
+:Name a owl:Class ;
+  rdfs:subClassOf dul:Quality, lp:Name ;
+  rdfs:label "Nom"@fr, "Name"@en .
+
+# DUL QUALITIES SECONDAIRES, SPÉCIFIQUES À CERTAIN TYPES DE PLACE
+
+# Une Place peut posséder un ou plusieurs statuts. Par exemple, un village peut être centre paroissial et chef lieu de commune.
+:Status a owl:Class;
+  rdfs:subClassOf dul:Quality ;
+  rdfs:label "Statut"@fr, "Status"@en.
+
+# Une Place habitée possède une population.
+:Population a owl:Class;
+  rdfs:subClassOf dul:Quality ;
+  rdfs:label "Population"@fr, "Population"@en .
+
+# ---------------------------------
+#      Properties definitions
+# ---------------------------------
+
+# RELATIONS ENTRE PLACE ET SES QUALITÉS PRINCIPALES
+
+# Relation entre :Place et :Location
+:hasLocation  a owl:ObjectProperty ;
+  rdfs:subPropertyOf dul:hasQuality, lp:hasLocation ;
+  rdfs:domain :Place ;
+  rdfs:range :Location ;
+  rdfs:label "est située"@fr, "has location"@en . 
+
+# Relation entre :Place et :Name
+:hasName  a owl:ObjectProperty ;
+  rdfs:subPropertyOf dul:hasQuality, lp:hasName ;
+  rdfs:domain :Place ;
+  rdfs:range :Name ;
+  rdfs:label "est nommée"@fr, "has name"@en .
+
+# RELATIONS ENTRE PLACE ET SES QUALITÉS SECONDAIRES
+
+# Relation entre :Place et :Status
+:hasStatus a owl:ObjectProperty ;
+  rdfs:subPropertyOf dul:hasQuality ;
+  rdfs:domain :Place ;
+  rdfs:range :Status ;
+  rdfs:label "a pour statut"@fr, "has status"@en .
+
+# Relation entre :Place et :Population
+:hasPopulation a owl:ObjectProperty ;
+  rdfs:subPropertyOf dul:hasQuality ;
+  rdfs:domain :Place ;
+  rdfs:range :Population ;
+  rdfs:label "a pour population"@fr, "has population"@en .
+
+# AUTRES RELATIONS
+
+# Une information historique est attestée par une source : document d'archive, article scientifique, site Web, 'crédit' d'un chercheur, etc.
+# Toutes les ressources de type dul:Entity peuvent être attestées par une source, comme :Place.
+# Cela concerne donc aussi les sous-classes : dul:Quality (:Location, :Name, etc.), dul:Region (dul:SpaceRegion, :TemporalEntity)...et dul:InformationEntity.
+# Une source peut donc être attestée par une autre source, et ainsi de suite, ce qui permet de décrire des sources de première main, seconde main, etc.
+:attestedIn a owl:ObjectProperty ;
+  rdfs:subPropertyOf lp:citation, prov:wasDerivedFrom, cito:citesAsEvidence;
+  rdfs:domain dul:Entity ;
+  rdfs:range dul:InformationEntity ;
+  rdfs:label "attesté dans"@fr, "attested in"@en .
+
+# Les Locations sont associées à des SpaceRegions. On modélisent représente les composantes spatiales directes des SpaceRegions à l'aide de locn:Geometry.
+# Dans DUL, c'est la relation dul:hasRegionDataValue qui sert à exprimer la valeur concrète d'une Région.
+# Par conséquent on définit une relation :geometry qui permet de lier une dul:SpaceRegion et une locn:Geometry en réutilisant les relations définies dans les deux vocabulaires.
+:geometry a owl:ObjectProperty ;
+  rdfs:subPropertyOf dul:hasRegionDataValue, locn:geometry ;
+  rdfs:domain dul:SpaceRegion ;
+  rdfs:range locn:Geometry ;
+  rdfs:label "a pour géométrie"@fr, "has geometry"@en .
+
+# :isObservableAt :: NOT IMPLEMENTED
+# On ne créer pas de propriété :isObservableAt qui hériterait de dul:isObservableAt et lp:when.
+# Tant que lp:when n'est pas formalisé, il s'agirait d'une redéfinition tout à fait inutile.
+
+
+
+#################################################################
+#     IMPORTS OF CLASSE & RELATIONS FROM OTHER VOCABULARIES
+#################################################################
+
+# -----------------------------------------------------------------
+#      Classes & relations imports from Dolce Ultra Lite (DUL)
+# -----------------------------------------------------------------
+
+# Utilisée par la relation :attestedIn et dul:isObservableAt
+dul:Entity a owl:Class ;
+  rdfs:label "Entity"@en, "Entità"@it, "Entité"@fr ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:unionOf (
+     dul:Abstract
+     dul:Event
+     dul:Object
+     dul:Quality
+     dul:Region
+   )
+  ] ;
+  rdfs:comment "N'importe quoi de réel, possible ou imaginaire que l'on souhaite représenter."@fr ;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+
+# Utilisée par la relation :attestedIn
+dul:InformationEntity a owl:Class ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:unionOf (
+     dul:InformationObject
+     dul:InformationRealization
+   )
+  ] ;
+  rdfs:subClassOf dul:Entity ;
+  rdfs:comment "A piece of information, be it concretely realized or not."@en, "Une information, qu'elle soit réifiée ou non."@fr ;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+
+dul:PhysicalPlace a owl:Class;
   rdfs:comment "Un objet physique qui est intrinsèquement localisé; par exemple, une zone hydrographique."@fr, "A physical object that is inherently located; for example, a water area."@en;
   rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
-  rdfs:label "Lieu physique"@fr, "PhysicalPlace"@en.
-				
-dul:Quality 	a owl:Class;
+  rdfs:label "Lieu physique"@fr, "PhysicalPlace"@en;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+        
+dul:Quality   a owl:Class;
   rdfs:comment "Tout aspect d'une Entité (mais pas une partie de celle-ci), qui ne peut exister sans cette Entité. Par exemple, l'apparence de la surface d'un ObjetPhysique donné, ou la lumière spécifique d'un lieu à un certain moment, sont des exemples de Qualité, alors que l'encodage de la valeur d'une Qualité comme par exemple un AttributePhysique devrait être modélisé comme une Région."@fr, 
   "Any aspect of an Entity (but not a part of it), which cannot exist without that Entity. For example, the way the surface of a specific PhysicalObject looks like, or the specific light of a place at a certain time, are examples of Quality, while the encoding of a Quality into e.g. a PhysicalAttribute should be modeled as a Region."@en;
   rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
-  rdfs:label "Qualité"@fr, "Quality"@en.
-				
-
-dul:TimeInterval	a owl:Class;
-  rdfs:comment "Toute région dans un espace dimensionnel qui vise à représenter le temps. "@fr, 
-  "Any Region in a dimensional space that aims at representing time."@en;
+  rdfs:label "Qualité"@fr, "Quality"@en;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+        
+dul:TimeInterval  a owl:Class;
+  rdfs:comment "Toute région dans un espace dimensionnel qui vise à représenter le temps. "@fr, "Any Region in a dimensional space that aims at representing time."@en;
   rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
-  rdfs:label "Intervalle temporel"@fr, "Time interval"@en.
-
-dul:InformationEntity a owl:Class ;
-	owl:equivalentClass [
-    a owl:Class ;
-    owl:unionOf (
-    	dul:InformationObject
-      dul:InformationRealization
-    )
-  ] ;
-	owl:subClassOf dul:Entity ;
-	rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+  rdfs:label "Intervalle temporel"@fr, "Time interval"@en;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
 
 
-# Classes inherited from elsewhere
-
-locn:Geometry a owl:Class;
-	rdfs:comment "Fournit un moyen pour décrire une localisation sous la forme de point, de ligne ou de polygone, etc. dont les coordonnées sont exprimées dans un système de coordonnées de référence donné."@fr,
-	"Provides the means to identify a location as a point, line, polygon, etc. expressed using coordinates in some coordinate reference system."@en;
-	rdfs:label "Géométrie"@fr, "Geometry"@en;
-	rdfs:isDefinedBy <http://www.w3.org/ns/locn#>.
-
-cito:citesAsEvidence a owl:ObjectProperty ;
-    rdfs:label "cites as evidence"@en ;
-    dc:description "Example: We found an unquestionable demonstration of our hypothesis in [X]."@en ;
-    rdfs:comment "The citing entity cites the cited entity as source of factual evidence for statements it contains."@en .
-
-# Properties inherited from Pleiades
-# N'existe plus dans LinkedPlaces
-pleiades:hasFeatureType	a	owl:ObjectProperty;
-						rdfs:comment "Links a place to the type of geographic feature to which it belongs."@en, "Lie un lieu au type d'entité géographique auquel il appartient."@fr;
-						rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
-						rdfs:label "has feature type"@en, "est une entité géographique de type"@fr;
-						rdfs:domain pleiades:Place;
-						rdfs:range skos:Concept.
-
-pleiades:hasName	a	owl:ObjectProperty;
-  rdfs:comment "Links a place to some name, used to mention it."@en, "Lie un lieu à un nom, utilisé pour le désigner."@fr;
-  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
-  rdfs:label "has name"@en, "a pour nom"@fr;
-  rdfs:domain pleiades:Place;
-  rdfs:range pleiades:Name.
-						
-pleiades:hasLocation	a	owl:ObjectProperty;
-  rdfs:comment "Links a place to some location, used to describe its position in space."@en, "Lie un lieu à une localisation, utilisée pour décrire sa position dans l'espace."@fr;
-  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
-  rdfs:label "has location"@en, "a pour localisation"@fr;
-  rdfs:domain pleiades:Place;
-  rdfs:range pleiades:Location.
-
-# Properties inherited from DUL
-
-dul:hasQuality	a	owl:ObjectProperty;
+dul:hasQuality  a owl:ObjectProperty;
   rdfs:comment "A relation between entities and qualities."@en, "Une relation entre des entités et leurs qualités."@fr;
   rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
   rdfs:label "has quality"@en, "a pour qualité"@fr;
   rdfs:domain dul:Entity;
   rdfs:range dul:Quality.
-						
-dul:isObservableAt	a	owl:ObjectProperty;
+            
+dul:isObservableAt  a owl:ObjectProperty;
   rdfs:comment "A relation to represent a (past, present or future) TimeInterval at which an Entity is observable."@en, "Une relation pour représenter un intervalle temporel (passé, présent ou futur) pendant lequel une entité est observable."@fr;
   rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
   rdfs:label "is observable at"@en, "est observable pendant"@fr;
   rdfs:domain dul:Entity;
   rdfs:range dul:TimeInterval.
 
-dul:hasRegion	a	owl:ObjectProperty;
-						rdfs:comment "A relation between entities and regions."@en, "Une relation entre entités et régions."@fr;
-						rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
-						rdfs:label "has region"@en, "a pour région"@fr;
-						rdfs:domain dul:Entity;
-						rdfs:range dul:Region.
+dul:hasRegion a owl:ObjectProperty;
+            rdfs:comment "A relation between entities and regions."@en, "Une relation entre entités et régions."@fr;
+            rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
+            rdfs:label "has region"@en, "a pour région"@fr;
+            rdfs:domain dul:Entity;
+            rdfs:range dul:Region.
 
-dul:hasDataValue	a	owl:DatatypeProperty;
-						rdfs:comment "A datatype property that encodes values from a datatype for an Entity."@en, "Cette propriété permet de représenter des valeurs de qualités litérales pour une entité."@fr;
-						rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
-						rdfs:label "has data value"@en, "a pour valeur"@fr;
-						rdfs:domain dul:Entity .
+dul:hasDataValue  a owl:DatatypeProperty;
+            rdfs:comment "A datatype property that encodes values from a datatype for an Entity."@en, "Cette propriété permet de représenter des valeurs de qualités litérales pour une entité."@fr;
+            rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
+            rdfs:label "has data value"@en, "a pour valeur"@fr;
+            rdfs:domain dul:Entity .
 
 dul:hasRegionDataValue a owl:DatatypeProperty ;
-	rdfs:label "has region data value"@en, "regione ha valore"@it, "a pour valeur"@fr ;
-	rdfs:comment "A datatype property that encodes values for a Region, e.g. a float for the Region Height."@fr, "Une propriété qui encode la valeur d'une région, ex. un nombre flottant pour la région 'Hauteur'" ;
-	rdfs:isDefinedBy  <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
-	rdfs:domain dul:Region;
-	rdfs:subPropertyOf dul:hasDataValue .
+  rdfs:label "has region data value"@en, "regione ha valore"@it, "a pour valeur"@fr ;
+  rdfs:comment "A datatype property that encodes values for a Region, e.g. a float for the Region Height."@fr, "Une propriété qui encode la valeur d'une région, ex. un nombre flottant pour la région 'Hauteur'" ;
+  rdfs:isDefinedBy  <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
+  rdfs:domain dul:Region;
+  rdfs:subPropertyOf dul:hasDataValue .
 
-# Properties inherited from elsewhere
+# -----------------------------------------------------------------------
+#      Classes & relations imports from Location Core vocabulary (locn)
+# -----------------------------------------------------------------------
+
+locn:Geometry a owl:Class;
+  rdfs:comment "Fournit un moyen pour décrire une localisation sous la forme de point, de ligne ou de polygone, etc. dont les coordonnées sont exprimées dans un système de coordonnées de référence donné."@fr,
+  "Provides the means to identify a location as a point, line, polygon, etc. expressed using coordinates in some coordinate reference system."@en;
+  rdfs:label "Géométrie"@fr, "Geometry"@en;
+  rdfs:isDefinedBy <http://www.w3.org/ns/locn#>.
 
 locn:geometry a rdf:Property ;
     rdfs:label "géométrie"@fr, "geometry"@en ;
-		rdfs:comment "Associe une ressource à la géométrie qui lui correspond"@fr, "Associates any resource with the corresponding geometry."@en ;
+    rdfs:comment "Associe une ressource à la géométrie qui lui correspond"@fr, "Associates any resource with the corresponding geometry."@en ;
     rdfs:isDefinedBy <http://www.w3.org/ns/locn> ;
     rdfs:range locn:Geometry.
 
-prov:wasDerivedFrom	a	owl:ObjectProperty;
-						rdfs:comment "A derivation is a transformation of an entity into another, an update of an entity resulting in a new one, or the construction of a new entity based on a pre-existing entity."@en, "Une dérivation est une transformation d'une entité en une autre, une mise à jour d'une entité résultant en une nouvelle, ou la construction d'une nouvelle entité basée sur une entité préexistante."@fr;
-						rdfs:isDefinedBy <http://www.w3.org/ns/prov#>;
-						rdfs:label "was derived from"@en, "a été dérivé de"@fr;
-						rdfs:domain prov:Entity;
-						rdfs:range prov:Entity.
+
+# -----------------------------------------------------------------------
+#      Classes & relations imports from Time 
+# -----------------------------------------------------------------------
+
+time:TemporalEntity
+  rdf:type owl:Class ;
+  rdfs:comment "A temporal interval or instant."@en ;
+  rdfs:label "Temporal entity"@en ;
+  rdfs:subClassOf owl:Thing ;
+  owl:unionOf (
+      :Instant
+      :Interval
+    ) ;
+  skos:definition "A temporal interval or instant."@en .
+
+# -----------------------------------------------------------------------
+#      Classes & relations imports from Citation Ontology (CiteO) 
+# -----------------------------------------------------------------------
+
+cito:citesAsEvidence a owl:ObjectProperty ;
+    rdfs:label "cites as evidence"@en ;
+    dc:description "Example: We found an unquestionable demonstration of our hypothesis in [X]."@en ;
+    rdfs:comment "The citing entity cites the cited entity as source of factual evidence for statements it contains."@en .
+
+
+# -----------------------------------------------------------------------
+#      Classes & relations imports from Prov
+# -----------------------------------------------------------------------
+
+prov:wasDerivedFrom a owl:ObjectProperty;
+            rdfs:comment "A derivation is a transformation of an entity into another, an update of an entity resulting in a new one, or the construction of a new entity based on a pre-existing entity."@en, "Une dérivation est une transformation d'une entité en une autre, une mise à jour d'une entité résultant en une nouvelle, ou la construction d'une nouvelle entité basée sur une entité préexistante."@fr;
+            rdfs:isDefinedBy <http://www.w3.org/ns/prov#>;
+            rdfs:label "was derived from"@en, "a été dérivé de"@fr;
+            rdfs:domain prov:Entity;
+            rdfs:range prov:Entity.
+
+# -----------------------------------------------------------------------
+#      Classes & relations "imports" from LinkedPlaces
+# Since LinkedPlaces does not provide a RDF vocabulary, these are ad-hoc definitions
+# of what 'could' be the actuel definitions of classes & properties 
+# -----------------------------------------------------------------------
+
+lp:Place  a owl:Class;
+  rdfs:comment "Dans Pléiades, les lieux sont des concepts. Ce sont des abstractions, des vues de l'esprit, intangibles, des points cartographiables à la surface de la terre. Même s'ils sont généralement étroitement liés aux entités géographiques du monde réel - une mer, une baie, une rivière, une chaîne de montagnes, un col, une route, une route, une colonie ou une région ethnique - ils n'ont pas d'attributs spatiaux ou temporels qui leur sont propres. [...] Un lieu peut n'être connu que par un nom mentionné dans une source ancienne, sans qu'il y ait de trace matérielle associée; à l'inverse, un site archéologique peut être considéré comme un lieu même si l'on ne sait pas comment il s'appelait dans l'antiquité. [...] Les lieux peuvent ne pas être plus grands qu'une maison ou aussi grands qu'un empire, être temporellement durables ou éphémères. Ils peuvent s'étendre, se réduire et évoluer au fil du temps. Un lieu peut être anonyme, non localisé, faussement attesté ou même mythique."@fr, 
+  "In Pleiades, places are conceptual entities. They are objects of thought, speech, or writing, not tangible, mappable points on the earth’s surface. Even though they are usually tied closely to some aspect or feature of the physical world — a sea, a bay, a river, a mountain range, a pass, a road, a settlement, or an ethnic region — They have no spatial or temporal attributes of their own. [...] A place can be known only through a name mentioned an ancient source, without any surviving material correlate; conversely, an archaeological site can be understood as a place even if we do not know what it was called in antiquity. [...] Places may be no larger than a family dwelling or as big as an empire, be temporally enduring or fleeting. They may expand, contract and evolve over time. A place may be unnamed, unlocated, falsely attested or even mythical."@en;
+  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
+  rdfs:seeAlso <https://pleiades.stoa.org/help/data-structure>;
+  rdfs:label "Lieu"@fr, "Place"@en.
+        
+lp:Name   a owl:Class;
+  rdfs:comment "On peut associer divers noms à un lieu. Un nom reflète l'identité d'un lieu en langage naturel et non son emplacement physique sur le terrain. Les noms n'ont pas de coordonnées spatiales, mais ils sont toujours annotés avec la ou les périodes de temps de la ou des sources textuelles dans lesquelles ils sont attestés. Comme pour les localisations, un lieu unique peut avoir plusieurs noms, mais un nom individuel peut être associé à un seul et unique lieu (même si cette même chaîne de caractères est aussi attestée comme nom pour un autre lieu)."@fr, 
+  "Names are also connected with places. A name reflects the identity of a place in human language, not its physical location in the landscape. Names have no spatial coordinates, but they are always annotated with the time period(s) of the textual source(s) in which they are attested. As with locations, a single place can have multiple names, but an individual name can be associated with one and only one place (even if the same sequence of characters is attested as a name for another place as well)."@en;
+  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
+  rdfs:label "Nom"@fr, "Name"@en.
+        
+lp:Location   a owl:Class;
+  rdfs:comment "Une localisation associe un lieu à des coordonnées dans l'espace. Une localisation identifie une zone d'intérêt spécifique à la surface de la terre, qui est associée à un lieu au cours d'une période donnée. Un lieu peut contenir plusieurs localisations. Selon les preuves dont on dispose, le fait d'associer une localisation à un lieu peut présenter divers degrés de certitude ; certains lieux, attestés par leur nom dans les sources anciennes, peuvent ne pas avoir de localisation associée faute de connaissances suffisantes pour localiser de façon fiable le site ou la zone ancienne en question."@fr, 
+  "Locations connect places to coordinates in space. A location identifies a specific area of interest on the earth's surface that is associated with a place during a particular date range. A place can contain multiple locations. Depending on the state of the evidence, the association between location and place may vary in certainty; some places, attested by name in ancient sources, may have no associated location at all because modern scholarship cannot pinpoint reliably the ancient site or area in question."@en;
+  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
+  rdfs:seeAlso <https://pleiades.stoa.org/help/data-structure>;
+  rdfs:label "Localisation"@fr, "Location"@en.
+
+# Properties inherited from Pleiades
+# N'existe plus dans LinkedPlaces
+lp:hasFeatureType	a	owl:ObjectProperty;
+						rdfs:comment "Links a place to the type of geographic feature to which it belongs."@en, "Lie un lieu au type d'entité géographique auquel il appartient."@fr;
+						rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
+						rdfs:label "has feature type"@en, "est une entité géographique de type"@fr;
+						rdfs:domain lp:Place;
+						rdfs:range skos:Concept.
+
+lp:hasName	a	owl:ObjectProperty;
+  rdfs:comment "Links a place to some name, used to mention it."@en, "Lie un lieu à un nom, utilisé pour le désigner."@fr;
+  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
+  rdfs:label "has name"@en, "a pour nom"@fr;
+  rdfs:domain lp:Place;
+  rdfs:range lp:Name.
 						
-# --------------------------------------------------------------
-# Définition spécifiques aux données Cassini
-# --------------------------------------------------------------
+lp:hasLocation	a	owl:ObjectProperty;
+  rdfs:comment "Links a place to some location, used to describe its position in space."@en, "Lie un lieu à une localisation, utilisée pour décrire sa position dans l'espace."@fr;
+  rdfs:isDefinedBy <http://pleiades.stoa.org/places/vocab>;
+  rdfs:label "has location"@en, "a pour localisation"@fr;
+  rdfs:domain lp:Place;
+  rdfs:range lp:Location.
 
-# ------------------------
-# Instances de dul:InformationObject utilisées pour référencer les sources historiques desquelles sont extraites les informations.
-
-:GeoreferencedCassiniBnF a dul:InformationRealization;
-  rdfs:label " Carte générale de la France géréférencée"@fr,  "Carte de Cassini géoréférencée"@fr, "Georeferenced Cassini's Map of France"@en;
-  rdfs:description "Version géoréférencée de l'exemplaire conservé au département des Cartes et plans de la BnF est l’un des rares aquarellés à la main dans les années 1780, chaque feuille en a été découpée en 21 rectangles collés ensuite sur une toile de jute afin d’en permettre le pliage et le transport aisés." ;
-	foaf:homepage <https://gallica.bnf.fr/html/und/cartes/france-en-cartes/la-carte-de-cassini> ;
-  :attestedIn [
-    	a time:Interval;
-    	time:hasBeginning [
-        a time:Instant;
-      	time:inXSDgYear "1756"^^xsd:gYear 
-      ];
-      time:hasEnd [
-        a time:Instant;
-      	time:inXSDgYear "179x"^^xsd:gYear 
-      ]
-  	].
-
-:RecensementAnIII a dul:InformationRealization; 
-	rdfs:label "Source du recensement de l'An III"@fr, "AN III census"@en;
-  :attestedIn [
-    	a time:Instant;
-    	time:inXSDgYear "1794"^^xsd:gYear 
-  ].
-
-:BDCarto1999 a dul:InformationRealization;
-	rdfs:label "Edition de la BDCARTO de l'IGN de 1999"@fr, "Edition 1999 of the database 'BDCARTO' by the French national mapping agency"@en;
-  :attestedIn [
-    	a time:Instant;
-    	time:inXSDgYear "1999"^^xsd:gYear 
-  ].
-
-
-:Recensement1801 a dul:InformationRealization;
-	rdfs:label "Source historique de 1801, à vérifier"@fr, "1801 historical source, to check"@en;
-  :attestedIn [
-    	a time:Instant;
-    	time:inXSDgYear "1801"^^xsd:gYear 
-  ].
-
-
-# ------------------------
-# Nouvelles classes
-
-:Place a owl:Class ;
-	rdfs:subClassOf dul:PhysicalPlace, pleiades:Place.
-
-:Location a owl:Class ;
-	rdfs:subClassOf dul:Quality, pleiades:Location.
-
-:Name a owl:Class ;
-	rdfs:subClassOf dul:Quality, pleiades:Name .
-
-# Statut d'un lieu (e.g chef lieu de commune)
-:Status a owl:Class;
-	rdfs:subClassOf dul:Quality ;
-	rdfs:label "Status"@fr . 
-
-:Population a owl:Class;
-	rdfs:subClassOf dul:Quality ;
-	rdfs:label "Population"@fr .
-
-
-# ------------------------
-# Nouvelles propriétés
-
-#-- Temporalisation 
-# BERTRAND : On redéfinit isObservableAt de façon à avoir un range plus large que dul:TimeInterval. À lier avec dul:isObservableAt ?
-:isObservableAt	a	owl:ObjectProperty ;
-  rdfs:domain dul:Entity ;
-  rdfs:range 
-    [
-      a owl:Class ;
-			owl:unionOf (dul:TimeInterval time:TemporalEntity skos:Concept)
-    ]	.
-
-#-- Source
-# BERTRAND : On redéfinit cito:citesAsEvidence de façon à avoir dul:InformationEntity (soit InformationObject, soit InformationRealization) comme range
-:attestedIn a owl:ObjectProperty ;
-	rdfs:subPropertyOf prov:wasDerivedFrom, dul:associatedWith ;
-	rdfs:range dul:InformationEntity .
-
-#-- Liens entre un lieu et ses qualités.
-:hasName  a owl:ObjectProperty ;
-	rdfs:subPropertyOf dul:hasQuality, pleiades:hasName ;
-	rdfs:domain :Place ;
- 	rdfs:range :Name .
-
-:hasLocation  a owl:ObjectProperty ;
-	rdfs:subPropertyOf dul:hasQuality, pleiades:hasLocation ;
-	rdfs:domain :Place ;
- 	rdfs:range :Location .
-
-:hasStatus a owl:ObjectProperty ;
-	rdfs:subPropertyOf dul:hasQuality ;
-	rdfs:domain :Place ;
- 	rdfs:range :Status .
-
-:hasPopulation a owl:ObjectProperty ;
-	rdfs:subPropertyOf dul:hasQuality ;
-	rdfs:domain :Place ;
- 	rdfs:range :Population .
-
-:hasInseeCode a owl:ObjectProperty ;
-	rdfs:subPropertyOf dul:hasQuality ;
-	rdfs:domain :Place ;
- 	rdfs:range dul:Quality .
-
-:geometry a owl:ObjectProperty ;
-	rdfs:subPropertyOf dul:hasRegionDataValue, locn:geometry ;
-	rdfs:domain dul:SpaceRegion ;
-	rdfs:range locn:Geometry .
-
-# types de lieux décrits en tant que concepts Skos
-
+lp:citation a owl:ObjectProperty;
+  rdfs:comment "Cites a source of information."@en, "Citation d'une source d'information."@fr;
+  rdfs:label "citation"@en.
+  # From LinkedPlaces, it seems that citation has no domain nor range ?
