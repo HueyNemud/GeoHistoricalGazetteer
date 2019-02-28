@@ -1,0 +1,5 @@
+Consignes de modélisation :
+
+- A chaque fois que nous voudrons mettre en correspondance une classe de DUL (dul:PhysicalPlace) et de LinkedPlaces (pleiades:Place), il est ncessaire de créer une classe homologue dans l'ontologie GHD (ex : ghd:Place), ce principe ne s'applique pas aux propriétés qui ne sont censées à être modifiées dans l'ontologie GHD
+- pour les proprietés dans DUL ou LinkedPlace que l'on souhaite modifier, il est necessaire de rédéfinir une roporiété dans notre ontologie qui va hériter de la propriété semblable,
+- pour définir la géométrie de l'entité, nous utilisons la technique #3 au niveau dul:hasDataValue, à savoir, "Assert a Quality for an Entity by using hasQuality, then assert a Region for that Quality, and assert an xsd:_ value to that Region, by using hasRegionDataValue"
