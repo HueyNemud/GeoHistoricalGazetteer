@@ -17,11 +17,10 @@
 @base	<http://data.geohistoricaldata.org/def/places#> .
 
 <http://data.geohistoricaldata.org/def/places#> rdf:type owl:Ontology ; 
-                                                dc:title "GHD"@en ;
-                                                dc:description "no No no, no ontology description here"@en ;
-                                                dc:description "New ontology description"@en ;
-                                                dc:description "naja keine description vorhanden halt"@de .
-
+                                                dc:title "geohistoricaldata"@en ;
+                                                dc:description "A vocabulary to model the history of places described by multiple sources of information."@en ;
+                                                dc:description "Un vocabulaire pour modéliser l'historique de lieux décrits par des sources d'information multiples."@fr ;
+                                                dc:description "Ein Vokabular zur Modellierung der Geschichte von Orten, die durch mehrere Informationsquellen beschrieben werden."@de .
 
 # -----------------------------------------------------------	---
 # Définitions héritées du vocabulaire de Nathalie (+imports externes). 
