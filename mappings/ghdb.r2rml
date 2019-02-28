@@ -8,7 +8,7 @@
 @prefix geo: <http://www.opengis.net/ont/geosparql#>
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix ghs: <http://data.geohistoricaldata.org/def/places#> .
+@prefix ghp: <http://data.geohistoricaldata.org/def/places#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 
@@ -35,7 +35,7 @@ mapping:Location
   rr:logicalTable mapping:PlaceTable;
     rr:subjectMap [
       rr:template "http://data.geohistoricaldata.org/id/location/{uid}";
-      rr:class ghs:Location;
+      rr:class ghp:Location;
   ];
 
   rr:predicateObjectMap [
@@ -62,7 +62,7 @@ mapping:Location
    ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:isObservableAt;
+    rr:predicate ghp:isObservableAt;
     rr:objectMap [ 
       rr:template "LocationTimeSpan{uid}";
       rr:termType rr:BlankNode;
@@ -173,7 +173,7 @@ mapping:BlankNodeStatus
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:isObservableAt;
+    rr:predicate ghp:isObservableAt;
     rr:objectMap [ 
       rr:template "BlankNodeStatus{type}Time{uid}";
       rr:termType rr:BlankNode;
@@ -181,7 +181,7 @@ mapping:BlankNodeStatus
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:attestedIn;
+    rr:predicate ghp:attestedIn;
     rr:objectMap [ rr:termType rr:IRI; rr:template "{source}"];
   ].
 
@@ -284,7 +284,6 @@ mapping:BlankNodeStatusSuccursaleTime
     ];
   ].
 
-
 mapping:BlankNodeStatusSuccursaleTimeBeginning
   rr:logicalTable mapping:PlaceTable;
 
@@ -319,7 +318,7 @@ mapping:PlaceName
 
   rr:subjectMap [
       rr:template "http://data.geohistoricaldata.org/id/placename/{place_id}_{numero}";
-      rr:class ghs:Name;
+      rr:class ghp:Name;
   ];
 
   rr:predicateObjectMap [
@@ -328,7 +327,7 @@ mapping:PlaceName
    ];
 
    rr:predicateObjectMap [
-      rr:predicate ghs:attestedIn;
+      rr:predicate ghp:attestedIn;
       rr:objectMap [ rr:termType rr:IRI; rr:template "http://data.geohistoricaldata.org/id/source/{source}"];
    ].
 
@@ -341,7 +340,7 @@ mapping:Place
   
   rr:subjectMap [
     rr:template "http://data.geohistoricaldata.org/id/place/{uid}";
-    rr:class ghs:Place;
+    rr:class ghp:Place;
   ];
 
   rr:predicateObjectMap [
@@ -375,7 +374,7 @@ mapping:Place
    ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:hasLocation;
+    rr:predicate ghp:hasLocation;
     rr:objectMap [
       rr:parentTriplesMap mapping:Location;
       rr:joinCondition [
@@ -386,7 +385,7 @@ mapping:Place
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:hasName;
+    rr:predicate ghp:hasName;
     rr:objectMap [
       rr:parentTriplesMap mapping:PlaceName;
       rr:joinCondition [
@@ -397,7 +396,7 @@ mapping:Place
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:hasStatus;
+    rr:predicate ghp:hasStatus;
     rr:objectMap [ 
       rr:template "BlankNodeStatusCommune1794{uid}";
       rr:termType rr:BlankNode;
@@ -405,7 +404,7 @@ mapping:Place
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:hasStatus;
+    rr:predicate ghp:hasStatus;
     rr:objectMap [ 
       rr:template "BlankNodeStatusCommune1999{uid}";
       rr:termType rr:BlankNode;
@@ -413,7 +412,7 @@ mapping:Place
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:hasStatus;
+    rr:predicate ghp:hasStatus;
     rr:objectMap [ 
       rr:template "BlankNodeStatusParoisse{uid}";
       rr:termType rr:BlankNode;
@@ -421,7 +420,7 @@ mapping:Place
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ghs:hasStatus;
+    rr:predicate ghp:hasStatus;
     rr:objectMap [ 
       rr:template "BlankNodeStatusSuccursale{uid}";
       rr:termType rr:BlankNode;
