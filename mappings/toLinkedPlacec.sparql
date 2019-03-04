@@ -1,0 +1,33 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ghp: <http://data.geohistoricaldata.org/def/places#>
+PREFIX geojson: <http://ld.geojson.org/vocab#>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX lpo: <http://linkedpasts.org/ontology#>
+PREFIX dct:  <http://purl.org/dc/terms/> 
+PREFIX cito:  <http://purl.org/spar/cito/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+CONSTRUCT {
+  # Classes
+  ?place a geojson:Feature.
+    
+  # Propriétés et valeurs
+  ?place geojson:properties ?propertiesblanknode.
+  ?propertiesblanknode dct:title ?placetitle.
+  ?place lpo:name_attestation ?name.
+  ?name lpo:toponym ?namevalue.
+  ?name dct:language 'fr'.
+  ?name cito:cites <http://data.geohistoricaldata.org/id/source/cassini>.
+}  
+WHERE {  
+  ?place a ghp:Place.
+  BIND(BNODE() AS ?propertiesblanknode).
+  
+  ?place dc:identifier ?placeid.
+  ?place ghp:hasName ?name.
+  ?name dul:hasDataValue ?namevalue.
+  {SELECT ?placetitle { ?name dul:hasDataValue ?placetitle } LIMIT 1 }
+}
