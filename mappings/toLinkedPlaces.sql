@@ -21,7 +21,7 @@ FROM (
     SELECT uid,
     -- BLOCK PROPERTIES
     json_build_object(
-      'title', nom,
+      'title', CASE WHEN nom IS NOT NULL THEN nom ELSE typerdf END,
       'ccodes', json_build_array('FR') 
     ) as _properties,
     -- BLOCK WHEN
