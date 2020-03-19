@@ -150,12 +150,79 @@
 #      Dolce Ultra Lite (DUL)
 # -----------------------------------------------------------------
 
+# Utilisée par la relation :attestedIn et dul:isObservableAt
+dul:Entity a owl:Class ;
+  rdfs:label "Entity"@en, "Entità"@it, "Entité"@fr ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:unionOf (
+     dul:Abstract
+     dul:Event
+     dul:Object
+     dul:Quality
+     dul:Region
+   )
+  ] ;
+  rdfs:comment "N'importe quoi de réel, possible ou imaginaire que l'on souhaite représenter."@fr ;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+
+# Utilisée par la relation :attestedBy
+dul:InformationEntity a owl:Class ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:unionOf (
+     dul:InformationObject
+     dul:InformationRealization
+   )
+  ] ;
+  rdfs:subClassOf dul:Entity ;
+  rdfs:comment "A piece of information, be it concretely realized or not."@en, "Toute source d'information, qu'elle soit matérisalisée ou abstraite. Par exemple, 'La carte de Cassini' ou l'exemplaire peint stocké à la Bibliothèque Nationale de France."@fr ;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+
+dul:InformationRealization
+  a owl:Class ;
+  rdfs:subClassOf dul:InformationEntity, [
+    a owl:Class ;
+    owl:unionOf (
+     dul:Event
+     dul:PhysicalObject
+   )
+  ], [
+    a owl:Restriction ;
+    owl:onProperty dul:realizes;
+    owl:someValuesFrom dul:InformationObject
+  ] ;
+  rdfs:comment "A concrete realization of an InformationObject, e.g. the written document containing the text of a law."^^xsd:string ;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> ;
+  rdfs:label "Information realization"@en, "Informazione concreta"@it .
+
+dul:InformationObject
+  a owl:Class ;
+  rdfs:subClassOf dul:SocialObject ;
+  owl:disjointWith dul:SocialAgent ;
+  rdfs:comment "A piece of information, such as a musical composition, a text, a word, a picture, independently from how it is concretely realized."^^xsd:string ;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> ;
+  rdfs:label "Information object"@en, "Oggetto informativo"@it .
+
+dul:PhysicalPlace a owl:Class;
+  rdfs:comment "Un objet physique qui est intrinsèquement localisé; par exemple, une zone hydrographique."@fr, "A physical object that is inherently located; for example, a water area."@en;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
+  rdfs:label "Lieu physique"@fr, "PhysicalPlace"@en;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+        
+dul:Quality   a owl:Class;
+  rdfs:comment "Tout aspect d'une Entité (mais pas une partie de celle-ci), qui ne peut exister sans cette Entité. Par exemple, l'apparence de la surface d'un ObjetPhysique donné, ou la lumière spécifique d'un lieu à un certain moment, sont des exemples de Qualité, alors que l'encodage de la valeur d'une Qualité comme par exemple un AttributePhysique devrait être modélisé comme une Région."@fr, 
+  "Any aspect of an Entity (but not a part of it), which cannot exist without that Entity. For example, the way the surface of a specific PhysicalObject looks like, or the specific light of a place at a certain time, are examples of Quality, while the encoding of a Quality into e.g. a PhysicalAttribute should be modeled as a Region."@en;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
+  rdfs:label "Qualité"@fr, "Quality"@en;
+  rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
+
 dul:isObservableAt  a owl:ObjectProperty;
   rdfs:comment "A relation to represent a (past, present or future) TimeInterval at which an Entity is observable."@en, "Une relation pour représenter un intervalle temporel (passé, présent ou futur) pendant lequel une entité est observable."@fr;
   rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>;
   rdfs:label "is observable at"@en, "est observable pendant"@fr;
   rdfs:domain dul:Entity;
-  rdfs:range time:TemporalEntity.
+  rdfs:range dul:TimeInterval.
 
 dul:hasQuality  a owl:ObjectProperty;
   rdfs:comment "A relation between entities and qualities."@en, "Une relation entre des entités et leurs qualités."@fr;
@@ -529,3 +596,4 @@ statustype:ChefLieuCommunal a skos:Concept;
    skos:prefLabel "Commune principal town"@en;
    skos:broader statustype:anystatus;
    skos:inScheme statustype:list.
+
