@@ -4,7 +4,7 @@
     @prefix locn:  <http://www.w3.org/ns/locn#> .
     @prefix dc:  <http://purl.org/dc/elements/1.1/> .
     @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
-    @prefix gsp:  <http://www.opengis.net/ont/geosparql#> .
+    @prefix geo:  <http://www.opengis.net/ont/geosparql#> .
     @prefix lp:  <http://linkedplaces.org/places#> .
 
     # A sample place.
@@ -12,7 +12,7 @@
     #         Griffandeix in 1791 (source: assemblée nationale consistuante) 
     # - located near Clermont-Ferrand Point(7.44096242532983 48.5997553804943), CRS:WGS84
     <http://data.geohistoricaldata.org/id/place/t_28936>
-      a                        ghp:Place ; # subclassOf : dul:PhysicalPlace, lp:Place
+      a                        ghp:Place ; 
       ghp:hasName              <http://data.geohistoricaldata.org/id/placename/t_28936_1> ;
       ghp:hasName              <http://data.geohistoricaldata.org/id/placename/t_28936_2> ;
       ghp:hasLocation          <http://data.geohistoricaldata.org/id/location/t_28936> ;
@@ -22,27 +22,26 @@
       dc:identifier            "t_28936" .
 
     <http://data.geohistoricaldata.org/id/placename/t_28936_1>
-      a                         ghp:Name ; # subclassOf : dul:Quality, lp:Name
+      a                         ghp:Name ; 
       dul:hasDataValue          "Griffoudet"^^xsd:String;
-      ghp:attestedIn             <http://data.geohistoricaldata.org/id/source/cassini>.
+      ghp:attestedBy             <http://data.geohistoricaldata.org/id/source/cassini>.
 
     <http://data.geohistoricaldata.org/id/placename/t_28936_2>
-      a                         ghp:Name ; # subclassOf : dul:Quality, lp:Name
+      a                         ghp:Name ; 
       dul:hasDataValue          "Griffandeix"^^xsd:String;
-      ghp:attestedIn             <http://data.geohistoricaldata.org/id/source/decretsassembleeconstituante>;
-      # This time we want to set a valid time more specific than in the source
+      ghp:attestedBy             <http://data.geohistoricaldata.org/id/source/decretsassembleeconstituante>;
       dul:isObservableAt        [
-                                    a    time:Instant; # subclassOf dul:TimeInterval, time:TemporalEntity
+                                    a    time:Instant; 
                                     time:inXSDDate  "1791-07-12"
                                 ].
 
     <http://data.geohistoricaldata.org/id/location/t_28936>
-      a                         ghp:Location ; # subclassOf : lp:Location, dul:Quality
-      dul:hasRegion             [ # SpaceRegions are stored as blanknodes. Here, the locn:geometry is a wktLiteral
-                                    a    dul:SpaceRegion;
-                                    ghp:geometry "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(7.44096242532983 48.5997553804943)"^^gsp:wktLiteral
+      a                         ghp:Location ; 
+      geo:hasGeometry             [ 
+                                    a    geo:Geometry;
+                                    geo:asWKT "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(7.44096242532983 48.5997553804943)"^^geo:wktLiteral
                                 ];
-      ghp:attestedIn             <http://data.geohistoricaldata.org/id/source/cassini>.
+      ghp:attestedBy             <http://data.geohistoricaldata.org/id/source/cassini>.
 
     <http://data.geohistoricaldata.org/id/source/cassini>
       a dul:InformationRealization;
