@@ -26,7 +26,7 @@
 ##############################################
 #   Doc : Représentation des géométries
 ##############################################
-# ghpghp:Place[sub. geo:SpatialObject] -> (ghpghp:hasLocation) -> ghpghp:Location[sub. geo:Feature] -> (geo:hasGeometry) -> geo:Geometry -> (geo:asWKT) -> Literal WKT
+# ghp:Place[sub. geo:SpatialObject] -> (ghp:hasLocation) -> ghp:Location[sub. geo:Feature] -> (geo:hasGeometry) -> geo:Geometry -> (geo:asWKT) -> Literal WKT
 #                                                                             |
 #                                                                       (hasFeatureType)
 #                                                                             |
@@ -54,7 +54,7 @@ ghp:Location a owl:Class ;
   "Locations connect places to coordinates in space. A location identifies a specific area of interest on the earth's surface that is associated with a place during a particular date range. A place can contain multiple locations. Depending on the state of the evidence, the association between location and place may vary in certainty; some places, attested by name in ancient sources, may have no associated location at all because modern scholarship cannot pinpoint reliably the ancient site or area in question."@en;
   rdfs:label "Localisation"@fr, "Location"@en .
 
-ghp:Nature a owl:Class ;
+ghp:Name a owl:Class ;
   rdfs:subClassOf dul:Quality ;
   rdfs:comment "On peut associer divers noms à un lieu. Un nom reflète l'identité d'un lieu en langage naturel et non son emplacement physique sur le terrain. Les noms n'ont pas de références spatiales, mais ils sont toujours annotés avec la ou les périodes de temps de la ou des sources dans lesquelles ils sont attestés. Comme pour les localisations, un lieu unique peut avoir plusieurs noms, mais un nom individuel peut être associé à un seul et unique lieu (même si cette même chaîne de caractères est aussi attestée comme nom pour un autre lieu)."@fr, 
   "Names are also connected with places. A name reflects the identity of a place in human language, not its physical location in the landscape. Names have no spatial coordinates, but they are always annotated with the time period(s) of the textual source(s) in which they are attested. As with locations, a single place can have multiple names, but an individual name can be associated with one and only one place (even if the same sequence of characters is attested as a name for another place as well)."@en;
@@ -79,7 +79,7 @@ ghp:Nature a owl:Class;
 #      Properties
 # ---------------------------------
 
-# Relations ghpghp:Place --> dul:Quality
+# Relations ghp:Place --> dul:Quality
 
 ghp:hasLocation  a owl:ObjectProperty;
   rdfs:subPropertyOf dul:hasQuality;
@@ -90,7 +90,7 @@ ghp:hasLocation  a owl:ObjectProperty;
 ghp:hasName  a owl:ObjectProperty ;
   rdfs:subPropertyOf dul:hasQuality;
   rdfs:domain ghp:Place ;
-  rdfs:range ghp:Nature ;
+  rdfs:range ghp:Name ;
   rdfs:label "est nommée"@fr, "has name"@en .
 
 ghp:hasStatus a owl:ObjectProperty ;
