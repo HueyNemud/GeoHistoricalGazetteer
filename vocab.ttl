@@ -1,4 +1,4 @@
-@prefix :    <http://data.geohistoricaldata.org/def/place#> .
+@prefix ghp:  <http://data.geohistoricaldata.org/def/place#> .
 @prefix dul:  <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
 # @prefix locn:  <http://www.w3.org/ns/locn#> . deprecated
 @prefix cito:  <http://purl.org/spar/cito/> .
@@ -24,14 +24,14 @@
                                                 dc:description "Ein Vokabular zur Modellierung der Geschichte von Orten, die durch mehrere Informationsquellen beschrieben werden."@de .
 
 ##############################################
-#	  Doc : Représentation des géométries
+#   Doc : Représentation des géométries
 ##############################################
-# ghp:Place[sub. geo:SpatialObject] -> (ghp:hasLocation) -> ghp:Location[sub. geo:Feature] -> (geo:hasGeometry) -> geo:Geometry -> (geo:asWKT) -> Literal WKT
-#																																							|
-#																																				(hasFeatureType)
-#																																							|
-#																																							v
-#																																					FeatureType
+# ghpghp:Place[sub. geo:SpatialObject] -> (ghpghp:hasLocation) -> ghpghp:Location[sub. geo:Feature] -> (geo:hasGeometry) -> geo:Geometry -> (geo:asWKT) -> Literal WKT
+#                                                                             |
+#                                                                       (hasFeatureType)
+#                                                                             |
+#                                                                             v
+#                                                                         FeatureType
 
 
 ##############################################
@@ -42,35 +42,35 @@
 #        Classes
 # -----------------------------------
 
-:Place a owl:Class ;
+ghp:Place a owl:Class ;
   rdfs:subClassOf dul:PhysicalPlace, geo:SpatialObject;
   rdfs:comment "Les lieux sont des concepts, ce sont des abstractions, des vues de l'esprit, intangibles, même s'ils sont généralement étroitement liés aux entités géographiques du monde réel - une mer, une baie, une rivière, une chaîne de montagnes, un col, une route, une route, une colonie ou une région ethnique. Ils n'ont pas d'attributs spatiaux ou temporels qui leur sont propres. Un lieu peut n'être connu que par un nom mentionné dans une source ancienne, sans qu'il y ait de trace matérielle associée; à l'inverse, un site archéologique peut être considéré comme un lieu même si l'on ne sait pas comment il s'appelait. Les lieux peuvent ne pas être plus grands qu'une maison ou aussi grands qu'un empire, être temporellement durables ou éphémères. Ils peuvent s'étendre, se réduire et évoluer au fil du temps. Un lieu peut être anonyme, non localisé, faussement attesté ou même mythique."@fr, 
   "In Pleiades, places are conceptual entities. They are objects of thought, speech, or writing, not tangible, mappable points on the earth’s surface. Even though they are usually tied closely to some aspect or feature of the physical world — a sea, a bay, a river, a mountain range, a pass, a road, a settlement, or an ethnic region — They have no spatial or temporal attributes of their own. [...] A place can be known only through a name mentioned an ancient source, without any surviving material correlate; conversely, an archaeological site can be understood as a place even if we do not know what it was called in antiquity. [...] Places may be no larger than a family dwelling or as big as an empire, be temporally enduring or fleeting. They may expand, contract and evolve over time. A place may be unnamed, unlocated, falsely attested or even mythical."@en;
   rdfs:label "Lieu"@fr, "Place"@en .
 
-:Location a owl:Class ;
+ghp:Location a owl:Class ;
   rdfs:subClassOf geo:Feature, dul:Quality;
   rdfs:comment "Une localisation associe un lieu à une référence spatiale, directe ou indirecte, attestée par une source d'informations. Cette localisation peut être associée à une temporalité. Un lieu peut être associé à plusieurs localisations. Selon les preuves dont on dispose, le fait d'associer une localisation à un lieu peut présenter divers degrés de certitude ; certains lieux, attestés par leur nom dans les sources anciennes, peuvent ne pas avoir de localisation associée faute de connaissances suffisantes pour localiser de façon fiable le site ou la zone ancienne en question."@fr, 
   "Locations connect places to coordinates in space. A location identifies a specific area of interest on the earth's surface that is associated with a place during a particular date range. A place can contain multiple locations. Depending on the state of the evidence, the association between location and place may vary in certainty; some places, attested by name in ancient sources, may have no associated location at all because modern scholarship cannot pinpoint reliably the ancient site or area in question."@en;
   rdfs:label "Localisation"@fr, "Location"@en .
 
-:Name a owl:Class ;
+ghp:Nature a owl:Class ;
   rdfs:subClassOf dul:Quality ;
   rdfs:comment "On peut associer divers noms à un lieu. Un nom reflète l'identité d'un lieu en langage naturel et non son emplacement physique sur le terrain. Les noms n'ont pas de références spatiales, mais ils sont toujours annotés avec la ou les périodes de temps de la ou des sources dans lesquelles ils sont attestés. Comme pour les localisations, un lieu unique peut avoir plusieurs noms, mais un nom individuel peut être associé à un seul et unique lieu (même si cette même chaîne de caractères est aussi attestée comme nom pour un autre lieu)."@fr, 
   "Names are also connected with places. A name reflects the identity of a place in human language, not its physical location in the landscape. Names have no spatial coordinates, but they are always annotated with the time period(s) of the textual source(s) in which they are attested. As with locations, a single place can have multiple names, but an individual name can be associated with one and only one place (even if the same sequence of characters is attested as a name for another place as well)."@en;
   rdfs:label "Nom"@fr, "Name"@en .
 
-:Status a owl:Class;
+ghp:Status a owl:Class;
   rdfs:subClassOf dul:Quality ;
   rdfs:comment "Un statut administratif, religieux, fiscal, judiciaire, etc. d'un lieu à un moment donné."@fr, "An administrative, religious, fiscal, juridical, etc. status of a place at a given time."@en;
   rdfs:label "Statut"@fr, "Status"@en.
 
-:Population a owl:Class;
+ghp:Population a owl:Class;
   rdfs:subClassOf dul:Quality ;
   rdfs:comment "Estimation d'un nombre d'habitants d'un lieu à un moment donné."@fr, "Estimation of the number of inhabitants in a place at a given time."@en ;
   rdfs:label "Population"@fr, "Population"@en.
 
-:Nature a owl:Class;
+ghp:Nature a owl:Class;
   rdfs:subClassOf dul:Quality ;
   rdfs:comment "La nature d'un lieu à un moment donné."@fr, "The nature of a place at a given time."@en ;
   rdfs:label "Nature"@fr, "Nature"@en.
@@ -79,64 +79,64 @@
 #      Properties
 # ---------------------------------
 
-# Relations ghp:Place --> dul:Quality
+# Relations ghpghp:Place --> dul:Quality
 
-:hasLocation  a owl:ObjectProperty;
+ghp:hasLocation  a owl:ObjectProperty;
   rdfs:subPropertyOf dul:hasQuality;
-  rdfs:domain :Place;
-  rdfs:range :Location;
+  rdfs:domain ghp:Place;
+  rdfs:range ghp:Location;
   rdfs:label "est localisée"@fr, "has location"@en . 
 
-:hasName  a owl:ObjectProperty ;
+ghp:hasName  a owl:ObjectProperty ;
   rdfs:subPropertyOf dul:hasQuality;
-  rdfs:domain :Place ;
-  rdfs:range :Name ;
+  rdfs:domain ghp:Place ;
+  rdfs:range ghp:Nature ;
   rdfs:label "est nommée"@fr, "has name"@en .
 
-:hasStatus a owl:ObjectProperty ;
+ghp:hasStatus a owl:ObjectProperty ;
   rdfs:subPropertyOf dul:hasQuality;
-  rdfs:domain :Place ;
-  rdfs:range :Status ;
+  rdfs:domain ghp:Place ;
+  rdfs:range ghp:Status ;
   rdfs:label "a pour statut"@fr, "has status"@en .
 
-:hasPopulation a owl:ObjectProperty ;
+ghp:hasPopulation a owl:ObjectProperty ;
   rdfs:subPropertyOf dul:hasQuality;
-  rdfs:domain :Place ;
-  rdfs:range :Population ;
+  rdfs:domain ghp:Place ;
+  rdfs:range ghp:Population ;
   rdfs:label "a pour population"@fr, "has population"@en .
 
-:hasNature a owl:ObjectProperty ;
+ghp:hasNature a owl:ObjectProperty ;
   rdfs:subPropertyOf dul:hasQuality;
-  rdfs:domain :Place ;
-  rdfs:range :Nature ;
+  rdfs:domain ghp:Place ;
+  rdfs:range ghp:Nature ;
   rdfs:label "a pour nature"@fr, "has nature"@en .
 
 # Relations temporelles et d'attestations
 
 # Une information historique est attestée par une source : document d'archive, article scientifique, site Web, 'crédit' d'un chercheur, etc.
-# Toutes les ressources de type dul:Entity peuvent être attestées par une source, comme :Place.
-# Cela concerne donc aussi les sous-classes : dul:Quality (:Location, :Name), etc..
+# Toutes les ressources de type dul:Entity peuvent être attestées par une source, comme ghp:Place.
+# Cela concerne donc aussi les sous-classes : dul:Quality (ghp:Location, ghp:Nature), etc..
 # Une source peut donc être attestée par une autre source, et ainsi de suite, ce qui permet de décrire des sources de première main, seconde main, etc.
-:attestedBy a owl:ObjectProperty ;
+ghp:attestedBy a owl:ObjectProperty ;
   rdfs:subPropertyOf prov:wasDerivedFrom, cito:citesAsEvidence;
   rdfs:label "attesté dans"@fr, "attested in"@en .
 
-:natureType a owl:ObjectProperty;
+ghp:NatureType a owl:ObjectProperty;
   rdfs:label "Type de nature de lieux"@fr;
   rdfs:label "Nature type"@en;
   rdfs:comment "Relie une nature de lieu à une instance de skos:Concept définie dans la liste 'naturetype' qui précise sa nature."@fr;
   rdfs:isDefinedBy <http://data.geohistoricaldata.org/def/place>;
-  rdfs:domain :Nature;  
+  rdfs:domain ghp:Nature;  
   rdfs:range [ a owl:Restriction;
           owl:onProperty skos:inScheme;
           owl:hasValue <http://data.geohistoricaldata.org/id/codes/place/naturetype/list> ].
 
-:statusType a owl:ObjectProperty;
+ghp:StatusType a owl:ObjectProperty;
   rdfs:label "Status d'un lieu"@fr;
   rdfs:label "Status type"@en;
   rdfs:comment "Relie une instance de Status à une instance de skos:Concept définie dans la liste 'statustype' qui précise sa nature."@fr, "Links a Status instance to an instance of skos: Concept defined in the list 'statustype' which specifies its nature."@en;
   rdfs:isDefinedBy <http://data.geohistoricaldata.org/def/place>;
-  rdfs:domain :Status;
+  rdfs:domain ghp:Status;
   rdfs:range [ a owl:Restriction;
           owl:onProperty skos:inScheme;
           owl:hasValue <http://data.geohistoricaldata.org/id/codes/place/statustype/list> ].
@@ -166,7 +166,7 @@ dul:Entity a owl:Class ;
   rdfs:comment "N'importe quoi de réel, possible ou imaginaire que l'on souhaite représenter."@fr ;
   rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl> .
 
-# Utilisée par la relation :attestedBy
+# Utilisée par la relation ghp:attestedBy
 dul:InformationEntity a owl:Class ;
   owl:equivalentClass [
     a owl:Class ;
@@ -398,8 +398,8 @@ time:TemporalEntity
   rdfs:label "Temporal entity"@en ;
   rdfs:subClassOf owl:Thing ;
   owl:unionOf (
-      :Instant
-      :Interval
+      time:Instant
+      time:Interval
     ) ;
   skos:definition "A temporal interval or instant."@en.
 
