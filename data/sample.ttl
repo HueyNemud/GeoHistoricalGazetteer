@@ -1,74 +1,113 @@
-    @prefix ghp:  <http://data.geohistoricaldata.org/def/places#> .
-    @prefix dul:  <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
-    @prefix time:  <http://www.w3.org/2006/time#> .
-    @prefix locn:  <http://www.w3.org/ns/locn#> .
-    @prefix dc:  <http://purl.org/dc/elements/1.1/> .
-    @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
-    @prefix geo:  <http://www.opengis.net/ont/geosparql#> .
-    @prefix lp:  <http://linkedplaces.org/places#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dul:   <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix ghp:   <http://data.geohistoricaldata.org/def/place#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
 
-    # A sample place.
-    # - named Graffoudet in 1756 (source: Cassini)
-    #         Griffandeix in 1791 (source: assemblée nationale consistuante) 
-    # - located near Clermont-Ferrand Point(7.44096242532983 48.5997553804943), CRS:WGS84
-    <http://data.geohistoricaldata.org/id/place/t_28936>
-      a                        ghp:Place ; 
-      ghp:hasName              <http://data.geohistoricaldata.org/id/placename/t_28936_1> ;
-      ghp:hasName              <http://data.geohistoricaldata.org/id/placename/t_28936_2> ;
-      ghp:hasLocation          <http://data.geohistoricaldata.org/id/location/t_28936> ;
+<http://data.geohistoricaldata.org/id/place/cl_25748>
+        a                ghp:Place ;
+        rdfs:seeAlso     "http://cassini.ehess.fr/cassini/fr/html/fiche.php?select_resultat=8827" ;
+        ghp:hasLocation  <http://data.geohistoricaldata.org/id/location/cl_25748> ;
+        ghp:hasName      <http://data.geohistoricaldata.org/id/name/cl_25748/2> , <http://data.geohistoricaldata.org/id/name/cl_25748/3> , <http://data.geohistoricaldata.org/id/name/cl_25748/1> ;
+        ghp:hasNature    <http://data.geohistoricaldata.org/id/nature/cl_25748/1> ;
+        ghp:hasStatus    <http://data.geohistoricaldata.org/id/status/cl_25748/2> , <http://data.geohistoricaldata.org/id/status/cl_25748/1> ;
+        dc:creator       "Claude Motte (LaDéHiS-CRH(UMR 8558)-EHESS), Marie-Christine Vouloir (LaDéHiS-CRH(UMR 8558)-EHESS) and the GeoHistoricalData group. http://geohistoricaldata.org" ;
+        dc:identifier    "cl_25748" ;
+        skos:closeMatch  <http://id.insee.fr/geo/commune/02169> .
 
-      # Not in the GHD ontology
-      dc:creator               "The GeoHistoricalData group. http://geohistoricaldata.org" ;
-      dc:identifier            "t_28936" .
+<http://data.geohistoricaldata.org/id/name/cl_25748/3>
+        a                   ghp:Name ;
+        rdfs:label          "Châtillon-lès-Sons" ;
+        ghp:attestedBy      <http://cassini.ehess.fr> ;
+        dul:isObservableAt  [ a                  time:Interval ;
+                              time:hasBeginning  [ a                time:Instant ;
+                                                   time:inXSDgYear  1999
+                                                 ] ;
+                              time:hasEnd        [ a                time:Instant ;
+                                                   time:inXSDgYear  1999
+                                                 ]
+                            ] .
 
-    <http://data.geohistoricaldata.org/id/placename/t_28936_1>
-      a                         ghp:Name ; 
-      dul:hasDataValue          "Griffoudet"^^xsd:String;
-      ghp:attestedBy             <http://data.geohistoricaldata.org/id/source/cassini>.
+<http://data.geohistoricaldata.org/id/name/cl_25748/2>
+        a                   ghp:Name ;
+        rdfs:label          "Chatillon les Sons" ;
+        ghp:attestedBy      <http://cassini.ehess.fr> ;
+        dul:isObservableAt  [ a                  time:Interval ;
+                              time:hasBeginning  [ a                time:Instant ;
+                                                   time:inXSDgYear  1794
+                                                 ] ;
+                              time:hasEnd        [ a                time:Instant ;
+                                                   time:inXSDgYear  1795
+                                                 ]
+                            ] .
 
-    <http://data.geohistoricaldata.org/id/placename/t_28936_2>
-      a                         ghp:Name ; 
-      dul:hasDataValue          "Griffandeix"^^xsd:String;
-      ghp:attestedBy             <http://data.geohistoricaldata.org/id/source/decretsassembleeconstituante>;
-      dul:isObservableAt        [
-                                    a    time:Instant; 
-                                    time:inXSDDate  "1791-07-12"
-                                ].
+<http://data.geohistoricaldata.org/id/name/cl_25748/1>
+        a                   ghp:Name ;
+        rdfs:label          "Chatillon" ;
+        ghp:attestedBy      <http://data.geohistoricaldata.org/id/source/cartedecassini> ;
+        dul:isObservableAt  [ a                  time:Interval ;
+                              time:hasBeginning  [ a                time:Instant ;
+                                                   time:inXSDgYear  1755
+                                                 ] ;
+                              time:hasEnd        [ a                time:Instant ;
+                                                   time:inXSDgYear  1815
+                                                 ]
+                            ] .
 
-    <http://data.geohistoricaldata.org/id/location/t_28936>
-      a                         ghp:Location ; 
-      geo:hasGeometry             [ 
-                                    a    geo:Geometry;
-                                    geo:asWKT "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(7.44096242532983 48.5997553804943)"^^geo:wktLiteral
-                                ];
-      ghp:attestedBy             <http://data.geohistoricaldata.org/id/source/cassini>.
+<http://data.geohistoricaldata.org/id/location/cl_25748>
+        a                   ghp:Location ;
+        ghp:attestedBy      <http://data.geohistoricaldata.org/id/source/cartedecassini> ;
+        dul:isObservableAt  [ a                  time:Interval ;
+                              time:hasBeginning  [ a                time:Instant ;
+                                                   time:inXSDgYear  1755
+                                                 ] ;
+                              time:hasEnd        [ a                time:Instant ;
+                                                   time:inXSDgYear  1815
+                                                 ]
+                            ] ;
+        geo:hasGeometry     [ a          geo:Geometry ;
+                              geo:asWKT  "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(3.68754825526488 49.7595291583295)"
+                            ] .
 
-    <http://data.geohistoricaldata.org/id/source/cassini>
-      a dul:InformationRealization;
-      dc:identifier "info:doi/some.fancy.doi";
-      dul:isObservableAt [
-          a time:Interval;
-          time:hasBeginning [
-            a time:Instant;
-            time:inXSDgYear "1756"^^xsd:gYear 
-          ];
-          time:hasEnd [
-            a time:Instant;
-            time:inXSDgYear "1799"^^xsd:gYear 
-          ]
-        ].
+<http://data.geohistoricaldata.org/id/nature/cl_25748/1>
+        a                   ghp:Nature ;
+        ghp:attestedBy      <http://data.geohistoricaldata.org/id/source/cartedecassini> ;
+        ghp:natureType      <http://data.geohistoricaldata.org/id/codes/place/naturetype/Clocher> ;
+        dul:isObservableAt  [ a                  time:Interval ;
+                              time:hasBeginning  [ a                time:Instant ;
+                                                   time:inXSDgYear  1755
+                                                 ] ;
+                              time:hasEnd        [ a                time:Instant ;
+                                                   time:inXSDgYear  1815
+                                                 ]
+                            ] .
 
-    <http://data.geohistoricaldata.org/id/source/decretsassembleeconstituante>
-    a dul:InformationObject;
-      dc:identifier "info:doi/some.other.fancy.doi";
-      dul:isObservableAt [
-          a time:Interval;
-          time:hasBeginning [
-            a time:Instant;
-            time:inXSDgYear "1791"^^xsd:gYear 
-          ];
-          time:hasEnd [
-            a time:Instant;
-            time:inXSDgYear "1793"^^xsd:gYear 
-          ]
-        ].
+<http://data.geohistoricaldata.org/id/status/cl_25748/2>
+        a                   ghp:Status ;
+        ghp:attestedBy      <http://cassini.ehess.fr> ;
+        ghp:statusType      <http://data.geohistoricaldata.org/id/codes/place/statustype/ChefLieuCommunal> ;
+        dul:isObservableAt  [ a                  time:Interval ;
+                              time:hasBeginning  [ a                time:Instant ;
+                                                   time:inXSDgYear  1999
+                                                 ] ;
+                              time:hasEnd        [ a                time:Instant ;
+                                                   time:inXSDgYear  1999
+                                                 ]
+                            ] .
+
+<http://data.geohistoricaldata.org/id/status/cl_25748/1>
+        a                   ghp:Status ;
+        ghp:attestedBy      <http://data.geohistoricaldata.org/id/source/cartedecassini> ;
+        ghp:statusType      <http://data.geohistoricaldata.org/id/codes/place/statustype/ChefLieuParoissialAncienRegime> ;
+        dul:isObservableAt  [ a                  time:Interval ;
+                              time:hasBeginning  [ a                time:Instant ;
+                                                   time:inXSDgYear  1755
+                                                 ] ;
+                              time:hasEnd        [ a                time:Instant ;
+                                                   time:inXSDgYear  1815
+                                                 ]
+                            ] .
+                            
